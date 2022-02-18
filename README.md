@@ -10,4 +10,6 @@ Monopoly
 
 
 ToDo
-- Multiple Player Integration
+- Community Chest List
+- Chance List
+- Dice Movement

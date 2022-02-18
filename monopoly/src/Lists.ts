@@ -5,7 +5,10 @@ export type place= {
     chance?: boolean,
     go?: boolean,
     jail?: boolean,
-    player?: boolean
+    player_1?: boolean,
+    player_2?: boolean,
+    player_3?: boolean,
+    player_4?: boolean
 };
 
 export type pos = {
