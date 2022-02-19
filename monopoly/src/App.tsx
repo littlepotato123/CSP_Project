@@ -9,25 +9,25 @@ const App: React.FC = () => {
   const [pos_1, setPos_1] = useState<pos>(
     {
       x: 2, 
-      y: 3
+      y: 0
     }
   );
   const [pos_2, setPos_2] = useState<pos>(
     {
       x: 2,
-      y:3
+      y:0
     }
   );
   const [pos_3, setPos_3] = useState<pos>(
     {
       x: 2,
-      y: 3
+      y: 0
     }
   );
   const [pos_4, setPos_4] = useState<pos>(
     {
       x: 2, 
-      y: 3
+      y: 0
     }
   );
 

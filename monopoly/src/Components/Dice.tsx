@@ -1,20 +1,69 @@
 import React, { useEffect, useState } from 'react';
+import { places, pos } from '../Lists';
 
 interface Props {
-    setDice: React.Dispatch<React.SetStateAction<number>>,
     count: number,
     setCount: React.Dispatch<React.SetStateAction<number>>,
+    setPos: React.Dispatch<React.SetStateAction<pos>>,
+    position: pos,
+    player: number
 }
 
 const Dice: React.FC<Props> = ({
-    setDice,
     count, 
-    setCount
+    setCount,
+    setPos,
+    position,
+    player
 }) => {
     const [dice_1, setDice_1] = useState<number>(0);
     const [dice_2, setDice_2] = useState<number>(0);
 
     const [clicked, setClicked] = useState<boolean>(false);
+
+    const move = () => {
+        let x = position.x;
+        let y = position.y;
+        console.log(x)
+        console.log(y)
+        console.log(places[x][y])
+        switch(player) {
+            case 1:
+                places[x][y].player_1 = false;
+                break;
+            
+            case 2:
+                places[x][y].player_2 = false;
+                break;
+            
+            case 3:
+                places[x][y].player_3 = false;
+                break;
+
+            case 4:
+                places[x][y].player_4 = false;
+                break;
+        }
+        const sum = dice_1 + dice_2
+        if(sum + y > 10) {
+            if(x == 3) {
+                x = -1;
+            }
+            const dif = sum - (10 - position.y);
+            if(dif > 10) {
+                console.log("Over");
+            }
+            setPos({
+                x: x + 1,
+                y: dif
+            });
+        } else {
+            setPos({
+                x,
+                y: y + sum
+            });
+        }
+    }
 
     useEffect(() => {
         setDice_1(0);
@@ -35,7 +84,6 @@ const Dice: React.FC<Props> = ({
 
             setDice_1(val_1);
             setDice_2(val_2);
-            setDice(val_1 + val_2);
             setClicked(true)
         }}>
             Roll
@@ -44,6 +92,7 @@ const Dice: React.FC<Props> = ({
             setDice_1(1);
             setDice_2(1);
             setClicked(false)
+            move();
             setCount(count + 1);
         }}>
             Next

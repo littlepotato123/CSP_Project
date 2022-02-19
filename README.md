@@ -8,8 +8,9 @@ Monopoly
 - Roll Dice 
 - Money Management
 
+https://www.monopolyland.com/list-monopoly-chance-community-chest-cards/
 
 ToDo
-- Community Chest List
+- Community Chest
 - Chance List
 - Dice Movement
