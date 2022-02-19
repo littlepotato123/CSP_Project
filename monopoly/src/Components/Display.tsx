@@ -41,45 +41,16 @@ const Display: React.FC<Props> = ({
             <div className="top-grid">
                 {
                     top.map((p: place, i) => {
-                        if(p.player_1) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 1</p>
-                            </div>)
-                        } else if(p.player_2) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 2</p>
-                            </div>)
-                        } else if(p.player_3) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 3</p>
-                            </div>)
-                        } else if(p.player_4) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 4</p>
-                            </div>)
-                        } else {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                            </div>)
-                        }
+                        return (
+                            <div>
+                                {p.name} <br />
+                                {p.price} <br />
+                                {p.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
+                                {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
+                                {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
+                                {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
+                            </div>
+                        )
                     })
                 }
             </div>
@@ -87,45 +58,16 @@ const Display: React.FC<Props> = ({
             <div className="left-grid">
                 {
                     left.map((p: place, i) => {
-                        if(p.player_1) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 1</p>
-                            </div>)
-                        } else if(p.player_2) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 2</p>
-                            </div>)
-                        } else if(p.player_3) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 3</p>
-                            </div>)
-                        } else if(p.player_4) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 4</p>
-                            </div>)
-                        } else {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                            </div>)
-                        }
+                        return (
+                            <div>
+                                {p.name} <br />
+                                {p.price} <br />
+                                {p.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
+                                {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
+                                {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
+                                {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
+                            </div>
+                        )
                     })
                 }
             </div>
@@ -133,45 +75,16 @@ const Display: React.FC<Props> = ({
             <div className="right-grid">
                 {
                     right.map((p: place, i) => {
-                        if(p.player_1) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 1</p>
-                            </div>)
-                        } else if(p.player_2) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 2</p>
-                            </div>)
-                        } else if(p.player_3) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 3</p>
-                            </div>)
-                        } else if(p.player_4) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 4</p>
-                            </div>)
-                        } else {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                            </div>)
-                        }
+                        return (
+                            <div>
+                                {p.name} <br />
+                                {p.price} <br />
+                                {p.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
+                                {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
+                                {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
+                                {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
+                            </div>
+                        )
                     })
                 }
             </div>
@@ -179,45 +92,16 @@ const Display: React.FC<Props> = ({
             <div className="bottom-grid">
                 {
                     bottom.map((p: place, i) => {
-                        if(p.player_1) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 1</p>
-                            </div>)
-                        } else if(p.player_2) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 2</p>
-                            </div>)
-                        } else if(p.player_3) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 3</p>
-                            </div>)
-                        } else if(p.player_4) {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                                <br />
-                                <p>Player 4</p>
-                            </div>)
-                        } else {
-                            return (<div key={p.name}>
-                                {p.name}
-                                <br />
-                                {p.price}
-                            </div>)
-                        }
+                        return (
+                            <div>
+                                {p.name} <br />
+                                {p.price} <br />
+                                {p.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
+                                {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
+                                {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
+                                {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
+                            </div>
+                        )
                     })
                 }
             </div>
