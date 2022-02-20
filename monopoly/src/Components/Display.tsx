@@ -49,6 +49,7 @@ const Display: React.FC<Props> = ({
                                 {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
                                 {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
                                 {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
+                                {p.bought ? null : <button>Buy</button>}
                             </div>
                         )
                     })
@@ -66,6 +67,7 @@ const Display: React.FC<Props> = ({
                                 {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
                                 {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
                                 {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
+                                {p.bought ? null : <button>Buy</button>}
                             </div>
                         )
                     })
@@ -83,6 +85,7 @@ const Display: React.FC<Props> = ({
                                 {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
                                 {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
                                 {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
+                                {p.bought ? null : <button>Buy</button>}
                             </div>
                         )
                     })
@@ -93,13 +96,14 @@ const Display: React.FC<Props> = ({
                 {
                     bottom.map((p: place, i) => {
                         return (
-                            <div className={p.bought ? p.bought : undefined }>
+                            <div className={p.bought ? p.bought : undefined}>
                                 {p.name} <br />
                                 {p.price} <br />
                                 {p.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
                                 {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
                                 {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
                                 {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
+                                {p.bought ? null : <button>Buy</button>}
                             </div>
                         )
                     })

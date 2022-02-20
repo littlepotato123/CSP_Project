@@ -29,7 +29,7 @@ export const places: Array<Array<place>> = [
     [
         {
             name: "Connecticut Avenue",
-            price: 120,
+            price: 120
         },
         {
             name: "Vermont Avenue",
