@@ -14,3 +14,7 @@ ToDo
 - Community Chest
 - Chance List
 - Dice Movement
+
+Bank
+- Each Player 1500
+- Total 20580

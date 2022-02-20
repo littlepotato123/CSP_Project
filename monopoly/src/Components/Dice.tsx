@@ -45,29 +45,34 @@ const Dice: React.FC<Props> = ({
                 break;
         }
         const sum = dice_1 + dice_2
-        if(sum + y > 10) {
+        if(sum + y >= 10) {
             if(x == 3) {
-                x = -1;
+                const dif = sum - (10-position.y);
+                setPos({
+                    x: 0,
+                    y: 10 - dif
+                });
+                console.log(`${x} + ${y}`)
+            } else {
+                const dif = sum - (10 - position.y);
+                setPos({
+                    x: x + 1,
+                    y: dif
+                });
+                console.log(`${x} + ${y}`)
             }
-            const dif = sum - (10 - position.y);
-            if(dif > 10) {
-                console.log("Over");
-            }
-            setPos({
-                x: x + 1,
-                y: dif
-            });
         } else {
             setPos({
                 x,
                 y: y + sum
             });
+            console.log(`${x} + ${y}`)
         }
     }
 
     useEffect(() => {
-        setDice_1(0);
-        setDice_2(0);
+        setDice_1(1);
+        setDice_2(1);
         setClicked(false);
     }, [])
 
