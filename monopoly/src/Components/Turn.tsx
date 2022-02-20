@@ -22,7 +22,7 @@ const Turn: React.FC<Props> = (
         pos_1,
         pos_2,
         pos_3,
-        pos_4
+        pos_4,
     }
 ) => {
     const [count, setCount] = useState<number>(1);

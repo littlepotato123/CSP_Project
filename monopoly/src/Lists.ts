@@ -1,3 +1,10 @@
+enum PLAYERS {
+    PLAYER_1 = "player_1",
+    PLAYER_2 = "player_2",
+    PLAYER_3 = "player_3",
+    PLAYER_4 = "player_4"
+}
+
 export type place= {
     name: string,
     price?: number,
@@ -8,8 +15,10 @@ export type place= {
     player_1?: boolean,
     player_2?: boolean,
     player_3?: boolean,
-    player_4?: boolean
+    player_4?: boolean,
+    bought?: PLAYERS | null
 };
+
 
 export type pos = {
     x: number,
@@ -20,7 +29,7 @@ export const places: Array<Array<place>> = [
     [
         {
             name: "Connecticut Avenue",
-            price: 120
+            price: 120,
         },
         {
             name: "Vermont Avenue",
@@ -62,7 +71,7 @@ export const places: Array<Array<place>> = [
     [
         {
             name: "New York Avenue",
-            price: 200
+            price: 200,
         },
         {
             name: "Tennesse Avenue",

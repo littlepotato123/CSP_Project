@@ -11,10 +11,17 @@ Monopoly
 https://www.monopolyland.com/list-monopoly-chance-community-chest-cards/
 
 ToDo
+- Bank
+- Buying Cards
 - Community Chest
 - Chance List
-- Dice Movement
 
 Bank
 - Each Player 1500
 - Total 20580
+
+Player Colors
+- Player 1: #072227
+- Player 2: #35858B
+- Player 3: #4FBDBA
+- Player 4: #AEFEFF

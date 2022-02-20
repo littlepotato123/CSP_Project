@@ -12,3 +12,52 @@ button {
     width: 60%;
     text-align: center;
 }
+
+.Balance_Display {
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    width: 75%;
+    margin: 10px;
+}
+
+.account_displays {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+.account_displays div {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.bank_display {
+    text-align: center;
+    background: black;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.player_1 {
+    background: #072227;
+    color: white
+}
+
+.player_2 {
+    background: #35858B;
+    color: white;
+}
+
+.player_3 {
+    background: #4FBDBA;
+}
+
+.player_4 {
+    background: #AEFEFF;
+}

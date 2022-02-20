@@ -16,9 +16,13 @@
   margin-right: 10px;
   height: 200px;
   text-align: center;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .top-grid > div {
+  padding: 5px;
+  border-radius: 10px;
   border: black dashed;
   margin-left: 10px;
   margin-right: 10px;
@@ -32,6 +36,8 @@
 }
 
 .left-grid > div {
+  padding: 5px;
+  border-radius: 10px;
   border: black dashed;
   margin-left: 10px;
   margin-right: 10px;
@@ -41,6 +47,8 @@
 }
 
 .right-grid > div {
+  padding: 5px;
+  border-radius: 10px;
   width: 160px;
   border: black dashed;
   margin-left: 10px;
