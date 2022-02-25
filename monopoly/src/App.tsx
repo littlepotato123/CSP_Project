@@ -37,12 +37,13 @@ const App: React.FC = () => {
   const [account_2, setBank_2] = useState<number>(1500);
   const [account_3, setBank_3] = useState<number>(1500);
   const [account_4, setBank_4] = useState<number>(1500);
+  const [count, setCount] = useState<number>(1);
 
   return (
     <div>
-      <Display pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} />
+      <Display count={count} pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} />
       <Bank bank={bank} account_1={account_1} account_2={account_2} account_3={account_3} account_4={account_4} />
-      <Turn pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} setPos_1={setPos_1} setPos_2={setPos_2} setPos_3={setPos_3} setPos_4={setPos_4} />
+      <Turn count={count} setCount={setCount} pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} setPos_1={setPos_1} setPos_2={setPos_2} setPos_3={setPos_3} setPos_4={setPos_4} />
     </div>
   )
 }

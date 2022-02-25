@@ -1,4 +1,4 @@
-enum PLAYERS {
+export enum PLAYERS {
     PLAYER_1 = "player_1",
     PLAYER_2 = "player_2",
     PLAYER_3 = "player_3",
@@ -12,6 +12,8 @@ export type place= {
     chance?: boolean,
     go?: boolean,
     jail?: boolean,
+    tax?: boolean,
+    park?: boolean,
     player_1?: boolean,
     player_2?: boolean,
     player_3?: boolean,
@@ -24,6 +26,127 @@ export type pos = {
     x: number,
     y: number
 }
+
+export type special = {
+    name: string,
+    func: () => void
+}
+
+export const chance: Array<special> = [
+    {
+        name: "Advance to Boardwalk",
+        func: () => {}
+    },
+    {
+        name: "Advance to GO!",
+        func: () => {// Collect 200
+        }
+    },
+    {
+        name: "Advance to Illinois Avenue. If you pass Go, collect $200",
+        func: () => {}
+    },
+    {
+        name: "Advance to St. Charles Place. If you pass Go, collect $200",
+        func: () => {}
+    },
+    {
+        name: "Advance to the nearest Railroad. If unowned, you may buy it from the Bank. If owned, pay wonder twice the rental to which they are otherwise entitled",
+        func: () => {}
+    },
+    {
+        name: "Advance to the nearest Railroad. If unowned, you may buy it from the Bank. If owned, pay wonder twice the rental to which they are otherwise entitled",
+        func: () => {}
+    },
+    {
+        name: "Bank pays you dividend of $50",
+        func: () => {}
+    },
+    {
+        name: "Get Out of Jail Free",
+        func: () => {}
+    },
+    {
+        name: "Go Back 3 Spaces",
+        func: () => {}
+    },
+    {
+        name: "Go to Jail. Go Directly to Jail, do not pass Go, do not collect $200",
+        func: () => {}
+    },
+    {
+        name: "Speeding fine $15",
+        func: () => {}
+    },
+    {
+        name: "Take a trip to Reading Railroad. If you pass Go, collect $200",
+        func: () => {}
+    },
+    {
+        name:"You have been elected chairman of the Board. Pay each player $50",
+        func: () => {}
+    },
+    {
+        name: "Your building loan matures.",
+        func: () => {}
+    }
+];
+
+export const community: Array<special> = [
+    {
+        name: "Advance to Go (Collect $200)",
+        func: () => {}
+    },
+    {
+        name: "Bank error in your favor. Collect $200",
+        func: () => {}
+    },
+    {
+        name: "Doctor’s fee. Pay $50",
+        func: () => {}
+    },
+    {
+        name: "From sale of stock you get $50",
+        func: () => {}
+    },
+    {
+        name: "Holiday fund matures. Receive $100",
+        func: () => {}
+    },
+    {
+        name: "Income tax refund. Collect $20",
+        func: () => {}
+    },
+    {
+        name: "It is your birthday. Collect $10 from every player",
+        func: () => {}
+    },
+    {
+        name: "Life insurance matures. Collect $100",
+        func: () => {}
+    },
+    {
+        name: "Pay hospital fees of $100",
+        func: () => {}
+    },
+    {
+        name: "Pay school fees of $50",
+        func: () => {}
+    },
+    {
+        name: "Receive $25 consultancy fee",
+        func: () => {}
+    },
+    {
+        name: "You have won second prize in a beauty contese. Collect $10",
+        func: () => {}
+    },
+    {
+        name: "You inherit $100",
+        func: () => {}
+    }
+]
+
 
 export const places: Array<Array<place>> = [
     [
@@ -49,7 +172,8 @@ export const places: Array<Array<place>> = [
         },
         {
             name: "Income Tax",
-            price: 200
+            price: 200,
+            tax: true
         },
         {
             name: "Baltic Avenue",
@@ -65,7 +189,7 @@ export const places: Array<Array<place>> = [
         },
         {
             name: "GO!",
-            go: true
+            go: true,
         },
     ],
     [
@@ -106,12 +230,14 @@ export const places: Array<Array<place>> = [
             price: 140
         },
         {
-            name: "JAIL!"
+            name: "JAIL!",
+            jail: true
         }
     ],
     [
         {
-            name: "Free Parking"
+            name: "Free Parking",
+            park: true
         },
         {
             name: "Kentucky Avenue",

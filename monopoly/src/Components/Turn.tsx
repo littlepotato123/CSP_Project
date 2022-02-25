@@ -11,6 +11,8 @@ interface Props {
     pos_2: pos,
     pos_3: pos,
     pos_4: pos,
+    count: number,
+    setCount: React.Dispatch<React.SetStateAction<number>>
 }
 
 const Turn: React.FC<Props> = (
@@ -23,9 +25,10 @@ const Turn: React.FC<Props> = (
         pos_2,
         pos_3,
         pos_4,
+        count,
+        setCount
     }
 ) => {
-    const [count, setCount] = useState<number>(1);
     const [val, setVal] = useState<any>(null);
     
     const player_1 = (

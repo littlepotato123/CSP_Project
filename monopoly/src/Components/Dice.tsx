@@ -16,17 +16,13 @@ const Dice: React.FC<Props> = ({
     position,
     player
 }) => {
-    const [dice_1, setDice_1] = useState<number>(0);
-    const [dice_2, setDice_2] = useState<number>(0);
-
+    const [dice_one, setDice_1] = useState(1);
+    const [dice_two, setDice_2] = useState(1);
     const [clicked, setClicked] = useState<boolean>(false);
 
-    const move = () => {
+    const move = (dice_1: number, dice_2: number) => {
         let x = position.x;
         let y = position.y;
-        console.log(x)
-        console.log(y)
-        console.log(places[x][y])
         switch(player) {
             case 1:
                 places[x][y].player_1 = false;
@@ -97,8 +93,8 @@ const Dice: React.FC<Props> = ({
     return (
         <div>
             <div style={{ background: 'black', color: 'white' }}>
-                {dice_1} <br />
-                {dice_2}
+                {dice_one} <br />
+                {dice_two}
             </div>
             <button disabled={clicked} onClick={() => {
 
@@ -108,14 +104,12 @@ const Dice: React.FC<Props> = ({
                 setDice_1(val_1);
                 setDice_2(val_2);
                 setClicked(true)
+                move(val_1,val_2);
             }}>
                 Roll
             </button>
             <button onClick={() => {
-                setDice_1(1);
-                setDice_2(1);
                 setClicked(false)
-                move();
                 setCount(count + 1);
             }}>
                 Next
