@@ -5,3 +5,31 @@
   transform: translate(50%, 0);
   background: blue
 }
+
+.floor {
+  height: 95vh;
+  position: relative;
+  background: black;
+  color: white;
+  margin: 0px;
+}
+
+.links {
+  text-align: center;
+  justify-content: center;
+  display: grid;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+}
+
+.links div {
+  margin: 10px;
+  border-radius: 10px;
+  background: #00ffb3;
+  padding: 10px;
+}
+
+.links a {
+  text-decoration: none;
+  color: black;
+}

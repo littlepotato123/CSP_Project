@@ -1,19 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
+import Floors from './Components/Floors';
 
 const App: React.FC = () => {
-  const [top, setTop] = useState<number>(0);
-
   return(
     <div>
-      <div style={{ top:`${top}px` }} className="elevator">
-        Hi
-      </div>
-      <button onClick={() => {
-        setTop(100);
-      }}>
-        Click
-      </button>
+      <Floors />
     </div>
   )
 };
