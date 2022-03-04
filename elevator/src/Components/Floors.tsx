@@ -4,7 +4,7 @@ import { Floors_ } from '../Lists';
 const Floors: React.FC = () => {
     return (
         <div>
-            <div id="up" className="links">
+            {/* <div id="up" className="links">
                 {
                     Floors_.map((val, i) => {
                         return (
@@ -14,17 +14,19 @@ const Floors: React.FC = () => {
                         )
                     })
                 }
+            </div> */}
+            <div className="floors">
+                {
+                    Floors_.map((val, i) => {
+                        return (
+                            <div className="floor" id={val.name.split(' ').join('')}>
+                                <h1>{val.name}</h1>
+                                <a style={{ textDecoration: 'none', color: 'white'}} href="/#up">UP</a>
+                            </div>
+                        );
+                    }) 
+                }
             </div>
-            {
-                Floors_.map((val, i) => {
-                    return (
-                        <div className="floor" id={val.name.split(' ').join('')}>
-                            <h1>{val.name}</h1>
-                            <a style={{ textDecoration: 'none', color: 'white'}} href="/#up">UP</a>
-                        </div>
-                    );
-                }) 
-            }
         </div>
     )
 }

@@ -1,9 +1,10 @@
 .elevator {
-  height: 1000px;
+  height: 75vh;
   width: 50%;
   position: absolute;
   transform: translate(50%, 0);
-  background: blue
+  background: blue;
+  z-index: 100;
 }
 
 .floor {
@@ -32,4 +33,9 @@
 .links a {
   text-decoration: none;
   color: black;
+}
+
+.floors {
+  margin: 0px;
+  padding: 0px;
 }

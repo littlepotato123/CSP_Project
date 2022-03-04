@@ -1,107 +1,133 @@
 type Floor = {
     name: string,
-    allowed: Array<number>
+    allowed: Array<number>,
+    top?: number
 }
 
 export const Floors_: Array<Floor> = [
     {
         name: "Floor 1",
-        allowed: []
+        allowed: [],
+        top: 3
     },
     {
         name: "Floor 2",
-        allowed: []
+        allowed: [],
+        top: 103
     },
     {
         name: "Floor 3",
-        allowed: []
+        allowed: [],
+        top: 203
     },
     {
         name: "Floor 4",
-        allowed: []
+        allowed: [],
+        top: 303
     },
     {
         name: "Floor 5",
-        allowed: []
+        allowed: [],
+        top: 403
     },
     {
         name: "Floor 6",
-        allowed: []
+        allowed: [],
+        top: 503
     },
     {
         name: "Floor 7",
-        allowed: []
+        allowed: [],
+        top: 603
     },
     {
         name: "Floor 8",
-        allowed: []
+        allowed: [],
+        top: 685
     },
     {
         name: "Floor 9",
-        allowed: []
+        allowed: [],
+        top: 785
     },
     {
         name: "Floor 10",
-        allowed: []
+        allowed: [],
+        top: 885
     },
     {
         name: "Floor 11",
-        allowed: []
+        allowed: [],
+        top: 985
     },
     {
         name: "Floor 12",
-        allowed: []
+        allowed: [],
+        top: 1085
     },
     {
         name: "Floor 13",
-        allowed: []
+        allowed: [],
+        top: 1185
     },
     {
         name: "Floor 14",
-        allowed: []
+        allowed: [],
+        top: 1285
     },
     {
         name: "Floor 15",
-        allowed: []
+        allowed: [],
+        top: 1375
     },
     {
         name: "Floor 16",
-        allowed: []
+        allowed: [],
+        top: 1475
     },
     {
         name: "Floor 17",
-        allowed: []
+        allowed: [],
+        top: 1575
     },
     {
         name: "Floor 18",
-        allowed: []
+        allowed: [],
+        top: 1660
     },
     {
         name: "Floor 19",
-        allowed: []
+        allowed: [],
+        top: 1760
     },
     {
         name: "Floor 20",
-        allowed: []
+        allowed: [],
+        top: 1860
     },
     {
         name: "Floor 21",
-        allowed: []
+        allowed: [],
+        top: 1960
     },
     {
         name: "Floor 22",
-        allowed: []
+        allowed: [],
+        top: 2060
     },
     {
         name: "Floor 23",
-        allowed: []
+        allowed: [],
+        top: 2150
     },
     {
         name: "Floor 24",
-        allowed: []
+        allowed: [],
+        top: 2250
     },
     {
         name: "Floor 25",
-        allowed: []
+        allowed: [],
+        top: 2350
     }
 ];

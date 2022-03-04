@@ -40,6 +40,5 @@ Elevator
 
 ToDo
 - Elevator Keypad
-- Elevator Movement
 - List of ALL PINS
 - List of AUTHORIZED PINS
