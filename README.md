@@ -10,9 +10,7 @@ Monopoly
 https://www.monopolyland.com/list-monopoly-chance-community-chest-cards
 
 ToDo
-- Buying Cards
 - Special Cards
-- Make count a global state
 
 Bank
 - Each Player 1500

@@ -6,7 +6,15 @@ interface Props {
     pos_2: pos,
     pos_3: pos,
     pos_4: pos,
-    count: number
+    count: number,
+    account_1: number,
+    account_2: number,
+    account_3: number,
+    account_4: number,
+    setAccount_1: React.Dispatch<React.SetStateAction<number>>,
+    setAccount_2: React.Dispatch<React.SetStateAction<number>>,
+    setAccount_3: React.Dispatch<React.SetStateAction<number>>,
+    setAccount_4: React.Dispatch<React.SetStateAction<number>>
 }
 
 const Display: React.FC<Props> = ({
@@ -14,7 +22,15 @@ const Display: React.FC<Props> = ({
     pos_2, 
     pos_3,
     pos_4,
-    count
+    count,
+    account_1,
+    account_2,
+    account_3,
+    account_4,
+    setAccount_1,
+    setAccount_2,
+    setAccount_3,
+    setAccount_4
 }) => {
     const [cards, setCards] = useState(places);
     const [_, setPlayer_1] = useState<pos>({ x: 0, y: 0});
@@ -26,25 +42,47 @@ const Display: React.FC<Props> = ({
 
     const buy = () => {
         const cur_cards = cards;
+        let card;
+        let price: number | undefined = 0;
         switch(count % 4) {
             case 0:
                 console.log("4");
-                cur_cards[pos_4.x][pos_4.y].bought = PLAYERS.PLAYER_4;
+                card = cur_cards[pos_4.x][pos_4.y];
+                card.bought = PLAYERS.PLAYER_4;
+                price = card.price;
+                if(price) {
+                    setAccount_4(account_4 - price)
+                }
                 break;
             
             case 1:
                 console.log('1');
-                cur_cards[pos_1.x][pos_1.y].bought = PLAYERS.PLAYER_1;
+                card = cur_cards[pos_1.x][pos_1.y];
+                card.bought = PLAYERS.PLAYER_1;
+                price = card.price;
+                if(price) {
+                    setAccount_1(account_1 - price)
+                }
                 break;
             
             case 2:
                 console.log('2')
-                cur_cards[pos_2.x][pos_2.y].bought = PLAYERS.PLAYER_2;
+                card = cur_cards[pos_2.x][pos_2.y];
+                card.bought = PLAYERS.PLAYER_2;
+                price = card.price;
+                if(price) {
+                    setAccount_2(account_2 - price);
+                }
                 break;
             
             case 3:
                 console.log("4")
-                cur_cards[pos_3.x][pos_3.y].bought = PLAYERS.PLAYER_3;
+                card = cur_cards[pos_3.x][pos_3.y];
+                card.bought = PLAYERS.PLAYER_3;
+                price = card.price;
+                if(price) {
+                    setAccount_3(account_3 - price);
+                }
                 break;
         }
         setCards(cur_cards);
