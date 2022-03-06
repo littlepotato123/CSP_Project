@@ -10,7 +10,7 @@ Monopoly
 https://www.monopolyland.com/list-monopoly-chance-community-chest-cards
 
 ToDo
-- Special Cards
+- Special Card Position Function
 
 Bank
 - Each Player 1500

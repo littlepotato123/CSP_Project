@@ -1,3 +1,5 @@
+import React from "react";
+
 export enum PLAYERS {
     PLAYER_1 = "player_1",
     PLAYER_2 = "player_2",
@@ -29,123 +31,191 @@ export type pos = {
 
 export type special = {
     name: string,
-    func: () => void
+    balance_func?: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => void,
+    position_func?: (current_pos: pos, setPos: React.Dispatch<React.SetStateAction<pos>>, balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => void,
+    pay_all_func?: (balance_1: number, setBalance_1: React.Dispatch<React.SetStateAction<number>>, balance_2: number, setBalance_2: React.Dispatch<React.SetStateAction<number>>, balance_3: number, setBalance_3: React.Dispatch<React.SetStateAction<number>>, balance_4: number, setBalance_4: React.Dispatch<React.SetStateAction<number>>) => void
+}
+
+export const collect_tax: special = {
+    name: "Collect Tax. Pay $200",
+    balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+        setBalance(balance - 200);
+    }
 }
 
 export const chance: Array<special> = [
     {
         name: "Advance to Boardwalk",
-        func: () => {}
-    },
-    {
-        name: "Advance to GO!",
-        func: () => {// Collect 200
+        position_func: (current_pos: pos, setPos: React.Dispatch<React.SetStateAction<pos>>, balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setPos({
+                x: 3,
+                y: 9
+            })
         }
     },
     {
         name: "Advance to Illinois Avenue. If you pass Go, collect $200",
-        func: () => {}
+        position_func: (current_pos: pos, setPos: React.Dispatch<React.SetStateAction<pos>>, balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            if(current_pos.x == 3) {
+                // Pass Go
+                setBalance(balance + 200);
+            }
+            setPos({
+                x: 2,
+                y: 4
+            })
+        }
     },
     {
         name: "Advance to St. Charles Place. If you pass Go, collect $200",
-        func: () => {}
-    },
-    {
-        name: "Advance to the nearest Railroad. If unowned, you may buy it from the Bank. If owned, pay wonder twice the rental to which they are otherwise entitled",
-        func: () => {}
-    },
-    {
-        name: "Advance to the nearest Railroad. If unowned, you may buy it from the Bank. If owned, pay wonder twice the rental to which they are otherwise entitled",
-        func: () => {}
+        position_func: (current_pos: pos, setPos: React.Dispatch<React.SetStateAction<pos>>, balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            if(current_pos.x == 3 || current_pos.x == 2) {
+                setBalance(balance + 200);
+            }
+            setPos({
+                x: 1,
+                y: 8
+            })
+        }
     },
     {
         name: "Bank pays you dividend of $50",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 12);
+        }
     },
-    {
-        name: "Get Out of Jail Free",
-        func: () => {}
-    },
-    {
-        name: "Go Back 3 Spaces",
-        func: () => {}
-    },
-    {
-        name: "Go to Jail. Go Directly to Jail, do not pass Go, do not collect $200",
-        func: () => {}
-    },
+    // {
+    //     name: "Get Out of Jail Free",
+    //     func: () => {}
+    // },
+    // {
+    //     name: "Go Back 3 Spaces",
+    //     position_func: (current_pos: pos, setPos: React.Dispatch<React.SetStateAction<pos>>) => {
+    //         // Checks
+    //     }
+    // },
     {
         name: "Speeding fine $15",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance - 15);
+        }
     },
     {
-        name: "Take a trip to Reading Railroad. If you pass Go, collect $200",
-        func: () => {}
+        name: "Take a trip to Reading Railroad",
+        position_func: (current_pos: pos, setPos: React.Dispatch<React.SetStateAction<pos>>, balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            if(current_pos.x == 3 || current_pos.x == 2 || current_pos.x == 1 || (current_pos.x == 0 && current_pos.y > 4)) {
+                setBalance(balance + 200)
+            }
+            setPos({
+                x: 0, 
+                y: 4
+            });
+        }
     },
     {
         name:"You have been elected chairman of the Board. Pay each player $50",
-        func: () => {}
+        pay_all_func: (balance_1: number, setBalance_1: React.Dispatch<React.SetStateAction<number>>, balance_2: number, setBalance_2: React.Dispatch<React.SetStateAction<number>>, balance_3: number, setBalance_3: React.Dispatch<React.SetStateAction<number>>, balance_4: number, setBalance_4: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance_1(balance_1 - 200);
+            setBalance_2(balance_2 + 50);
+            setBalance_3(balance_3 + 50);
+            setBalance_4(balance_4 + 50);
+        }
     },
     {
-        name: "Your building loan matures.",
-        func: () => {}
+        name: "Your building loan matures. Collect $150",
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 150);
+        }
     }
 ];
 
 export const community: Array<special> = [
     {
         name: "Advance to Go (Collect $200)",
-        func: () => {}
+        position_func: (current_pos: pos, setPos: React.Dispatch<React.SetStateAction<pos>>, balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 200);
+            setPos({
+                x: 0,
+                y: 9
+            })
+        }
     },
     {
         name: "Bank error in your favor. Collect $200",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 200);
+        }
     },
     {
         name: "Doctor’s fee. Pay $50",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance - 50);
+        }
     },
     {
         name: "From sale of stock you get $50",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 50);
+        }
     },
     {
         name: "Holiday fund matures. Receive $100",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 100);
+        }
     },
     {
         name: "Income tax refund. Collect $20",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 20);
+        }
     },
     {
         name: "It is your birthday. Collect $10 from every player",
-        func: () => {}
+        pay_all_func: (balance_1: number, setBalance_1: React.Dispatch<React.SetStateAction<number>>, balance_2: number, setBalance_2: React.Dispatch<React.SetStateAction<number>>, balance_3: number, setBalance_3: React.Dispatch<React.SetStateAction<number>>, balance_4: number, setBalance_4: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance_1(balance_1 + 40);
+            setBalance_2(balance_2 - 10);
+            setBalance_2(balance_2 - 10);
+            setBalance_2(balance_2 - 10);
+        }
     },
     {
         name: "Life insurance matures. Collect $100",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 100);
+        }
     },
     {
         name: "Pay hospital fees of $100",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance - 100);
+        }
     },
     {
         name: "Pay school fees of $50",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance - 50);
+        }
     },
     {
         name: "Receive $25 consultancy fee",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 25);
+        }
     },
     {
         name: "You have won second prize in a beauty contese. Collect $10",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 10);
+        }
     },
     {
         name: "You inherit $100",
-        func: () => {}
+        balance_func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 100);
+        }
     }
-]
+];
 
 
 export const places: Array<Array<place>> = [
@@ -230,7 +300,7 @@ export const places: Array<Array<place>> = [
             price: 140
         },
         {
-            name: "JAIL!",
+            name: "Visiting Jail",
             jail: true
         }
     ],
@@ -278,7 +348,7 @@ export const places: Array<Array<place>> = [
     ],
     [
         {
-            name: "Go To Jail",
+            name: "Visiting Jail",
             jail: true
         },
         {
