@@ -12,7 +12,8 @@ interface Props {
     pos_3: pos,
     pos_4: pos,
     count: number,
-    setCount: React.Dispatch<React.SetStateAction<number>>
+    setCount: React.Dispatch<React.SetStateAction<number>>,
+    setPrevious: React.Dispatch<React.SetStateAction<pos>>,
 }
 
 const Turn: React.FC<Props> = (
@@ -26,7 +27,8 @@ const Turn: React.FC<Props> = (
         pos_3,
         pos_4,
         count,
-        setCount
+        setCount,
+        setPrevious
     }
 ) => {
     const [val, setVal] = useState<any>(null);
@@ -34,28 +36,28 @@ const Turn: React.FC<Props> = (
     const player_1 = (
         <div>
             Player 1
-            <Dice player={1} position={pos_1} setPos={setPos_1}  count={count} setCount={setCount} />
+            <Dice player={1} position={pos_1} setPos={setPos_1}  count={count} setCount={setCount} setPrevious={setPrevious} />
         </div>
     )
 
     const player_2 = (
         <div>
             Player 2
-            <Dice player={2} position={pos_2} setPos={setPos_2} count={count} setCount={setCount}/>
+            <Dice player={2} position={pos_2} setPos={setPos_2} count={count} setCount={setCount}  setPrevious={setPrevious}/>
         </div>
     )
 
     const player_3 = (
         <div>
             Player 3
-            <Dice player={3} position={pos_3} setPos={setPos_3} count={count} setCount={setCount}/>
+            <Dice player={3} position={pos_3} setPos={setPos_3} count={count} setCount={setCount} setPrevious={setPrevious}/>
         </div>
     )
 
     const player_4 = (
         <div>
             Player 4
-            <Dice player={4} position={pos_4} setPos={setPos_4} count={count} setCount={setCount}/>
+            <Dice player={4} position={pos_4} setPos={setPos_4} count={count} setCount={setCount} setPrevious={setPrevious}/>
         </div>
     )
 

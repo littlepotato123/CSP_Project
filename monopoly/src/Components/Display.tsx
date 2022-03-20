@@ -18,7 +18,8 @@ interface Props {
     setPos_1: React.Dispatch<React.SetStateAction<pos>>,
     setPos_2: React.Dispatch<React.SetStateAction<pos>>,
     setPos_3: React.Dispatch<React.SetStateAction<pos>>,
-    setPos_4: React.Dispatch<React.SetStateAction<pos>>
+    setPos_4: React.Dispatch<React.SetStateAction<pos>>,
+    previous: pos
 }
 
 const Display: React.FC<Props> = ({
@@ -38,7 +39,8 @@ const Display: React.FC<Props> = ({
     setPos_1,
     setPos_2,
     setPos_3,
-    setPos_4
+    setPos_4,
+    previous
 }) => {
     const [cards, setCards] = useState(places);
 
@@ -139,11 +141,47 @@ const Display: React.FC<Props> = ({
                 {but}
             </div>
         )
+    }
 
+    const check_go = () => {
+        switch(count % 4) {
+            case 0:
+                if(previous.x == 3 && pos_4.x == 0) {
+                    alert("Player 4 Passed Go \n Collect $200")
+                    setAccount_4(account_4 + 200);
+                }
+                break
+
+            case 1:
+                if(previous.x == 3 && pos_1.x == 0) {
+                    alert("Player 1 Passed Go \n Collect $200");
+                    setAccount_1(account_1 + 200);
+                }
+                // Player 1
+                break;
+
+            case 2:
+                if(previous.x == 3 && pos_2.x == 0) {
+                    alert("Player 2 Passed Go \n Collect $200")
+                    setAccount_2(account_2 + 200);
+                }
+                //Player 2
+                break;
+
+            case 3:
+                if(previous.x == 3 && pos_3.x == 0) {
+                    alert("Player 3 Passed Go \n Collect $200")
+                    setAccount_3(account_3 + 200);
+                }
+                //Player 3
+                break;
+        }
     }
 
     useEffect(() => {
-        // Check to see if they pass go
+        if(count > 4) {
+            check_go();
+        }
         setPlayer_1(pos_1);
         setPlayer_2(pos_2);
         setPlayer_3(pos_3);

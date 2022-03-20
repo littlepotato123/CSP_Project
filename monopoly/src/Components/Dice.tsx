@@ -6,7 +6,8 @@ interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>,
     setPos: React.Dispatch<React.SetStateAction<pos>>,
     position: pos,
-    player: number
+    player: number,
+    setPrevious: React.Dispatch<React.SetStateAction<pos>>,
 }
 
 const Dice: React.FC<Props> = ({
@@ -14,7 +15,8 @@ const Dice: React.FC<Props> = ({
     setCount,
     setPos,
     position,
-    player
+    player,
+    setPrevious
 }) => {
     const [dice_one, setDice_1] = useState(1);
     const [dice_two, setDice_2] = useState(1);
@@ -23,6 +25,7 @@ const Dice: React.FC<Props> = ({
     const move = (dice_1: number, dice_2: number) => {
         let x = position.x;
         let y = position.y;
+        setPrevious({x, y});
         switch(player) {
             case 1:
                 places[x][y].player_1 = false;
