@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { chance, collect_tax, community, place, places, PLAYERS, pos } from '../Lists';
+import { collect_tax, place, places, PLAYERS, pos } from '../Lists';
 
 interface Props {
     pos_1: pos,
@@ -93,86 +93,24 @@ const Display: React.FC<Props> = ({
         setCards(cur_cards);
     }
 
-    const community_func = () => {
-        const rand = Math.floor(Math.random() * community.length - 1);
-        const rand_card = community[0];
-        switch(count % 4) {
-            case 0:
-                window.alert(`Player 4: Community Chest \n ${rand_card.name}`)
-                if(rand_card.balance_func) {
-                    rand_card.balance_func(account_4, setAccount_4);
-                } else if(rand_card.pay_all_func) {
-                    rand_card.pay_all_func(account_4, setAccount_4, account_1, setAccount_1, account_2, setAccount_2, account_3, setAccount_3);
-                } else if(rand_card.position_func) {
-                    rand_card.position_func(pos_4, setPos_4, account_4, setAccount_4);
-                }
-                break;
-            
-            case 1:
-                window.alert(`Player 1: Community Chest \n ${rand_card.name}`)
-                // Function
-                if(rand_card.balance_func) {
-                    rand_card.balance_func(account_1, setAccount_1);
-                } else if(rand_card.pay_all_func) {
-                    rand_card.pay_all_func(account_1, setAccount_1, account_4, setAccount_4, account_2, setAccount_2, account_3, setAccount_3);
-                } else if(rand_card.position_func) {
-                    rand_card.position_func(pos_1, setPos_4, account_1, setAccount_1);
-                }
-
-                break;
-
-            case 2:
-                window.alert(`Player 2: Community Chest \n ${rand_card.name}`)
-                // Function
-                if(rand_card.balance_func) {
-                    rand_card.balance_func(account_2, setAccount_2);
-                } else if(rand_card.pay_all_func) {
-                    rand_card.pay_all_func(account_2, setAccount_2, account_1, setAccount_1, account_4, setAccount_4, account_3, setAccount_3);
-                } else if(rand_card.position_func) {
-                    rand_card.position_func(pos_2, setPos_4, account_2, setAccount_2);
-                }
-
-                break;
-
-            case 3:
-                window.alert(`Player 3: Community Chest \n ${rand_card.name}`)
-                // Function
-                if(rand_card.balance_func) {
-                    rand_card.balance_func(account_3, setAccount_3);
-                } else if(rand_card.pay_all_func) {
-                    rand_card.pay_all_func(account_3, setAccount_3, account_1, setAccount_1, account_2, setAccount_2, account_4, setAccount_4);
-                } else if(rand_card.position_func) {
-                    rand_card.position_func(pos_3, setPos_4, account_3, setAccount_3);
-                }
-
-                break;
-        }
-    }
-
-    const chance_func = () => {
-        // Chance
-        const rand = Math.floor(Math.random() * chance.length - 1);
-        const rand_card = chance[rand];
-    }
-
     const tax = () => {
-        window.alert(`Player Must pay tax. \n ${collect_tax.name}`)
-        if(collect_tax.balance_func) {
+        window.alert(`Player Must pay tax. \n $200}`)
+        if(collect_tax) {
             switch(count % 4) {
                 case 0: 
-                    collect_tax.balance_func(account_4, setAccount_4);
+                    collect_tax(account_4, setAccount_4);
                     break;
                 
                 case 1:
-                    collect_tax.balance_func(account_1, setAccount_1);
+                    collect_tax(account_1, setAccount_1);
                     break;
 
                 case 2:
-                    collect_tax.balance_func(account_2, setAccount_2);
+                    collect_tax(account_2, setAccount_2);
                     break;
 
                 case 3:
-                    collect_tax.balance_func(account_3, setAccount_3);
+                    collect_tax(account_3, setAccount_3);
                     break;
             }
 
@@ -186,14 +124,14 @@ const Display: React.FC<Props> = ({
         } else if(p.tax) {
             but = <button onClick={tax}>Pay Tax</button>
         } else if(p.community) {
-            but = <button onClick={community_func}>Draw Card</button>
+            but = <button onClick={() => {}}>Draw Card</button>
         } else if(p.chance) {
-            but = <button onClick={chance_func}>Draw Card</button>
+            but = <button onClick={() => {}}>Draw Card</button>
         } else if(p.jail || p.go) {
             but = <div></div>
         }
          else {
-            but = <button onClick={community_func}>Buy</button>
+            but = <button onClick={buy}>Buy</button>
         }
 
         return (
