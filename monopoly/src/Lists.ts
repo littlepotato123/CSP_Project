@@ -27,6 +27,95 @@ export type pos = {
     y: number
 }
 
+type special = {
+    name: string,
+    func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => void
+}
+
+export const chance: special[] = [
+    {
+        name: "Speeding Fine",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance - 15);
+        }
+    },
+    {
+        name: "Building Loan Matures. Collect $150",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance - 150);
+        }
+    },
+    {
+        name: "Doctor's Fee. Pay $50",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance - 50);
+        }
+    },
+    {
+        name: "Pay Hospital Fees of $100",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance- 100);
+        }
+    },
+    {
+        name: "Pay School Fees of $50",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance - 50);
+        }
+    }
+]
+
+export const community: special[] = [
+    {
+        name: "You inherit $100",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 100);
+        }
+    },
+    {
+        name: "You have won second prize in a beauty contest. Collect $10",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 10);
+        }
+    },
+    {
+        name: "Receive $25 consultancy fee",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 25);
+        }
+    },
+    {
+        name: "It is your birthday. Collect $200",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 200);
+        }
+    },
+    {
+        name: "Life Insurance Matures. Collect $100",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 100);
+        }
+    },
+    {
+        name: "Income Tax Refund. Collect $20",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 20);     
+        }
+    },
+    {
+        name: "Your building loan matures. Collect $150",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 150)
+        }
+    },
+    {
+        name: "Bank error in your favor. Collect $200",
+        func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
+            setBalance(balance + 200);
+        }
+    }
+]
+
 export const collect_tax = (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
     setBalance(balance-200);
 }

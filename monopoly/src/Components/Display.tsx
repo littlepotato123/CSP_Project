@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collect_tax, place, places, PLAYERS, pos } from '../Lists';
+import { chance, collect_tax, community, place, places, PLAYERS, pos } from '../Lists';
 
 interface Props {
     pos_1: pos,
@@ -120,33 +120,51 @@ const Display: React.FC<Props> = ({
     }
 
     const community_func = (): void => {
+        const card = community[Math.floor(Math.random() * (community.length - 1) + 1)]
         switch(count % 4) {
             case 0:
+                alert(`Player 4: ${card.name}`)
+                card.func(account_4, setAccount_4)
                 break;
 
             case 1:
+                alert(`Player 1: ${card.name}`)
+                card.func(account_1, setAccount_1)
                 break;
 
             case 2:
+                alert(`Player 2: ${card.name}`)
+                card.func(account_2, setAccount_2)
                 break;
 
             case 3:
+                alert(`Player 3: ${card.name}`)
+                card.func(account_3, setAccount_3)
                 break;
         }
     }
 
     const chance_func = (): void => {
+        const card = chance[Math.floor(Math.random() * (chance.length - 1) + 1)]
         switch(count % 4) {
             case 0:
+                alert(`Player 4: ${card.name}`)
+                card.func(account_4, setAccount_4)
                 break;
 
             case 1:
+                alert(`Player 1: ${card.name}`)
+                card.func(account_1, setAccount_1)
                 break;
 
             case 2:
+                alert(`Player 2: ${card.name}`)
+                card.func(account_2, setAccount_2)
                 break;
 
             case 3:
+                alert(`Player 3: ${card.name}`)
+                card.func(account_3, setAccount_3)
                 break;
         }
     }
@@ -298,6 +316,7 @@ const Display: React.FC<Props> = ({
     }
 
     useEffect(() => {
+        check_go();
         setPlayer_1(pos_1);
         setPlayer_2(pos_2);
         setPlayer_3(pos_3);
