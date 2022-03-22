@@ -153,14 +153,94 @@ const Display: React.FC<Props> = ({
 
     const rent_func = (p: place) => {
         if(p.price) {
-            
+            const rent_price = p.price / 10;
+            switch(count % 4) {
+                case 0:
+                    switch(p.bought) {
+                        case PLAYERS.PLAYER_1:
+                            setAccount_4(account_4 - rent_price);
+                            setAccount_1(account_1 + rent_price);
+                            break;
+
+                        case PLAYERS.PLAYER_2:
+                            setAccount_4(account_4 - rent_price);
+                            setAccount_2(account_2 + rent_price);
+                            break;
+
+                        case PLAYERS.PLAYER_3:
+                            setAccount_4(account_4 - rent_price);
+                            setAccount_3(account_3 + rent_price);
+                            break;
+                    }
+                    break;
+
+                case 1:
+                    switch(p.bought) {
+                        case PLAYERS.PLAYER_2:
+                            setAccount_1(account_1 - rent_price);
+                            setAccount_2(account_2 + rent_price);
+                            break;
+
+                        case PLAYERS.PLAYER_3:
+                            setAccount_1(account_1 - rent_price);
+                            setAccount_3(account_3 + rent_price);
+                            break;
+
+                        case PLAYERS.PLAYER_4:
+                            setAccount_1(account_1 - rent_price);
+                            setAccount_4(account_4 + rent_price);
+                            break;
+                    }
+                    break;
+
+                case 2:
+                    switch(p.bought) {
+                        case PLAYERS.PLAYER_1:
+                            setAccount_2(account_2 - rent_price);
+                            setAccount_1(account_1 + rent_price);
+                            break;
+
+                        case PLAYERS.PLAYER_3:
+                            setAccount_2(account_2 - rent_price);
+                            setAccount_3(account_3 + rent_price);
+                            break;
+
+                        case PLAYERS.PLAYER_4:
+                            setAccount_2(account_2 - rent_price);
+                            setAccount_4(account_4 + rent_price);
+                            break;
+                    }
+                    break;
+
+                case 3:
+                    switch(p.bought) {
+                        case PLAYERS.PLAYER_1:
+                            setAccount_3(account_3 - rent_price);
+                            setAccount_1(account_1 + rent_price);
+                            break;
+
+                        case PLAYERS.PLAYER_2:
+                            setAccount_3(account_3 - rent_price);
+                            setAccount_2(account_2 + rent_price);
+                            break;
+
+                        case PLAYERS.PLAYER_4:
+                            setAccount_3(account_3 - rent_price);
+                            setAccount_4(account_4 + rent_price);
+                            break;
+                    }
+                    break;
+            }
         }
     }
     
     const display_b = (p: place) => {
         let but = <div></div>;
+        let rent = <div></div>;
         if(p.bought) {
-            return null;
+            rent = <button onClick={() => {
+                rent_func(p)
+            }}>Rent</button>
         } else if(p.tax) {
             but = <button onClick={tax}>Pay Tax</button>
         } else if(p.community) {
@@ -174,17 +254,10 @@ const Display: React.FC<Props> = ({
             but = <button onClick={buy}>Buy</button>
         }
 
-        let rent = <div></div>
-
-        if(p.bought) {
-            rent = <button onClick={() => {
-                rent_func(p);
-            }}>Rent</button>
-        }
-
         return (
             <div>
                 {but}
+                {rent}
             </div>
         )
     }
