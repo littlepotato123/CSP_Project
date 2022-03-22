@@ -22,7 +22,6 @@ export type place= {
     bought?: PLAYERS | null
 };
 
-
 export type pos = {
     x: number,
     y: number
@@ -104,7 +103,7 @@ export const places: Array<Array<place>> = [
         },
         {
             name: "States Avenue",
-            community: true
+            price: 160
         },
         {
             name: "Electric Company",

@@ -118,6 +118,44 @@ const Display: React.FC<Props> = ({
 
         }
     }
+
+    const community_func = (): void => {
+        switch(count % 4) {
+            case 0:
+                break;
+
+            case 1:
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                break;
+        }
+    }
+
+    const chance_func = (): void => {
+        switch(count % 4) {
+            case 0:
+                break;
+
+            case 1:
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                break;
+        }
+    }
+
+    const rent_func = (p: place) => {
+        if(p.price) {
+            
+        }
+    }
     
     const display_b = (p: place) => {
         let but = <div></div>;
@@ -126,14 +164,22 @@ const Display: React.FC<Props> = ({
         } else if(p.tax) {
             but = <button onClick={tax}>Pay Tax</button>
         } else if(p.community) {
-            but = <button onClick={() => {}}>Draw Card</button>
+            but = <button onClick={community_func}>Draw Card</button>
         } else if(p.chance) {
-            but = <button onClick={() => {}}>Draw Card</button>
+            but = <button onClick={chance_func}>Draw Card</button>
         } else if(p.jail || p.go) {
             but = <div></div>
         }
          else {
             but = <button onClick={buy}>Buy</button>
+        }
+
+        let rent = <div></div>
+
+        if(p.bought) {
+            rent = <button onClick={() => {
+                rent_func(p);
+            }}>Rent</button>
         }
 
         return (
@@ -179,9 +225,6 @@ const Display: React.FC<Props> = ({
     }
 
     useEffect(() => {
-        if(count > 4) {
-            check_go();
-        }
         setPlayer_1(pos_1);
         setPlayer_2(pos_2);
         setPlayer_3(pos_3);
