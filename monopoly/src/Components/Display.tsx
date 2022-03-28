@@ -171,6 +171,7 @@ const Display: React.FC<Props> = ({
 
     const rent_func = (p: place) => {
         if(p.price) {
+            // Alert who has to pay rent to who
             const rent_price = p.price / 10;
             switch(count % 4) {
                 case 0:
@@ -268,7 +269,10 @@ const Display: React.FC<Props> = ({
         } else if(p.jail || p.go) {
             but = <div></div>
         }
-         else {
+        else if(p.park) {
+            but = <div></div>
+        }
+        else {
             but = <button onClick={buy}>Buy</button>
         }
 
