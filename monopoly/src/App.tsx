@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Bank from './Components/Bank_Display';
 import Display from './Components/Display';
@@ -53,11 +53,22 @@ const App: React.FC = () => {
   // Used to determine whose turn it is
   const [count, setCount] = useState<number>(1);
 
+  // Runs for the first render
+  useEffect(() => {
+    let cur_cards = cards;
+    // Displays each player at the corresponding starting position 
+    cur_cards[0][9].player_1 = true;
+    cur_cards[0][9].player_2 = true;
+    cur_cards[0][9].player_3 = true;
+    cur_cards[0][9].player_4 = true;
+    setCards(cur_cards);
+  }, [])
+
   return (
     <div>
-      <Display previous={previous_pos} setPos_1={setPos_1} setPos_2={setPos_2} setPos_3={setPos_3} setPos_4={setPos_4} count={count} pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} account_1={account_1} account_2={account_2} account_3={account_3} account_4={account_4} setAccount_1={setBank_1} setAccount_2={setBank_2} setAccount_3={setBank_3} setAccount_4={setBank_4} />
+      <Display cards={cards} setCards={setCards} previous={previous_pos} setPos_1={setPos_1} setPos_2={setPos_2} setPos_3={setPos_3} setPos_4={setPos_4} count={count} pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} account_1={account_1} account_2={account_2} account_3={account_3} account_4={account_4} setAccount_1={setBank_1} setAccount_2={setBank_2} setAccount_3={setBank_3} setAccount_4={setBank_4} />
       <Bank account_1={account_1} account_2={account_2} account_3={account_3} account_4={account_4} />
-      <Turn setPrevious={setPrevious} count={count} setCount={setCount} pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} setPos_1={setPos_1} setPos_2={setPos_2} setPos_3={setPos_3} setPos_4={setPos_4} />
+      <Turn cards={cards} setCards={setCards} setPrevious={setPrevious} count={count} setCount={setCount} pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} setPos_1={setPos_1} setPos_2={setPos_2} setPos_3={setPos_3} setPos_4={setPos_4} />
     </div>
   )
 }

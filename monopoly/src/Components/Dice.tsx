@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 // Places: The List of all cards
 // Pos: A type that has an x and y value
-import { places, pos } from '../Lists';
+import { place, pos } from '../Lists';
 
 // Creating Parameters
 interface Props {
@@ -16,6 +16,9 @@ interface Props {
     setPos: React.Dispatch<React.SetStateAction<pos>>,
     // Used in storing the previous position of the corresponding player to determine whether they have passed "GO"
     setPrevious: React.Dispatch<React.SetStateAction<pos>>,
+
+    cards: place[][],
+    setCards: React.Dispatch<React.SetStateAction<place[][]>>
 }
 
 const Dice: React.FC<Props> = ({
@@ -24,7 +27,9 @@ const Dice: React.FC<Props> = ({
     setCount,
     setPos,
     position,
-    setPrevious
+    setPrevious,
+    cards,
+    setCards
 }) => {
     // Initializing the dice variables and the functions used to chang ethe dice values
     const [dice_one, setDice_1] = useState(1);
@@ -36,9 +41,11 @@ const Dice: React.FC<Props> = ({
     // Function to move the player based on the dice roll
     // Parameters: the random dice values
     const move = (dice_1: number, dice_2: number) => {
+        let cur_cards = cards;
         // Current position of the player
         let x = position.x;
         let y = position.y;
+
         // Setting the previous position to the current position because position is about to change
         setPrevious({x, y});
         // Switch statement to determine which player it is
@@ -46,25 +53,25 @@ const Dice: React.FC<Props> = ({
             // Player 1
             case 1:
                 // Accessing the card at the player's position and removing the player from that card
-                places[x][y].player_1 = false;
+                cur_cards[x][y].player_1 = false;
                 break;
             
             // Player 2
             case 2:
                 // Accessing the card at the player's position and removing the player from that card
-                places[x][y].player_2 = false;
+                cur_cards[x][y].player_2 = false;
                 break;
             
             // Player 3
             case 3:
                 // Accessing the card at the player's position and removing the player from that card
-                places[x][y].player_3 = false;
+                cur_cards[x][y].player_3 = false;
                 break;
 
             // Player 4
             case 0:
                 // Accessing the card at the player's position and removing the player from that card
-                places[x][y].player_4 = false;
+                cur_cards[x][y].player_4 = false;
                 break;
         }
         // Sum of dice values
@@ -73,13 +80,13 @@ const Dice: React.FC<Props> = ({
         // Special If statement because for rows 0 and 1, the card order is backwards
         if(x === 0 || x === 1) {
             // (y-sum) because card order is backwards
-            const diff = y- sum;
-            if(diff < 0) {
+            if(sum > y) {
+                const diff = 10 - (sum - y);
                 if(x === 0) {
                     // If the difference is greater than 0 and the player is in the list 0, move player to list 1
                     x = 1;
                     // Setting the y-position to 10 - (difference) because list is backwards  
-                    y = 10 - diff
+                    y = diff
                     setPos({
                         x,
                         y
@@ -88,7 +95,7 @@ const Dice: React.FC<Props> = ({
                     // If the difference is less than 0 and the player is in the list 1, move player to list 2
                     x = 2;
                     // List is offset by 1 (starting at 0) and the 
-                    y = diff - 1
+                    y = diff
                     setPos({
                         x,
                         y
@@ -96,7 +103,7 @@ const Dice: React.FC<Props> = ({
                 }
             } else {
                 // If the difference is greater than 0, then the player remains in the same row and the y-value becomes the difference
-                y = diff;
+                y -= sum
                 setPos({
                     x,
                     y
@@ -105,9 +112,8 @@ const Dice: React.FC<Props> = ({
         } else {
             // If the sum + y is greater than 10, the player moves on to the next row
             if(sum + y >= 10) {
+                const dif = sum - (10 - y);
                 if(x === 3) {
-                    const dif = sum - (10 - y);
-
                     // If the player is at row 3, they must go back to row 0
                     x = 0;
                     // Considering the offset of the movement in row 3 and row 0
@@ -119,7 +125,6 @@ const Dice: React.FC<Props> = ({
                     });
                 } else {
                     // 
-                    const dif = sum - (10 - y);
                     // Moving to the next row
                     x += 1
                     // Considering the offset of the movement in the starting row and the next row
@@ -142,25 +147,24 @@ const Dice: React.FC<Props> = ({
             }
         }
 
-        // console.log(x);
-        // console.log(y);
+        switch(count % 4) {
+            case 0:
+                cur_cards[x][y].player_4 = true;
+                break;
 
-        // switch(count % 4) {
-        //     case 0:
-        //         places[x][y].player_4 = true;
-        //         break;
+            case 1:
+                cur_cards[x][y].player_1 = true;
+                break;
 
-        //     case 1:
-        //         places[x][y].player_1 = true;
-        //         break;
+            case 2:
+                cur_cards[x][y].player_2 = true;
+                break;
 
-        //     case 2:
-        //         places[x][y].player_2 = true;
-        //         break;
+            case 3:
+                cur_cards[x][y].player_3 = true;
+        }
 
-        //     case 3:
-        //         places[x][y].player_3 = true;
-        // }
+        setCards(cur_cards);
     }
 
     return (

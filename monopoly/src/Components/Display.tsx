@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { chance, collect_tax, community, place, places, PLAYERS, pos } from '../Lists';
+import React, { useEffect } from 'react';
+import { chance, collect_tax, community, place, PLAYERS, pos } from '../Lists';
 
 interface Props {
     // Current Position of all players
@@ -25,6 +25,9 @@ interface Props {
     setPos_2: React.Dispatch<React.SetStateAction<pos>>,
     setPos_3: React.Dispatch<React.SetStateAction<pos>>,
     setPos_4: React.Dispatch<React.SetStateAction<pos>>,
+
+    cards: place[][],
+    setCards: React.Dispatch<React.SetStateAction<place[][]>>
     previous: pos
 }
 
@@ -47,17 +50,12 @@ const Display: React.FC<Props> = ({
     setPos_2,
     setPos_3,
     setPos_4,
+    cards,
+    setCards,
     previous
 }) => {
     // A temporary state that stores all of the cards
     // A function that can change the temporary state of all of the cards
-    const [cards, setCards] = useState<place[][]>(places);
-
-    
-    // const [_, setPlayer_1] = useState<pos>({ x: 0, y: 0});
-    // const [__, setPlayer_2] = useState<pos>({ x: 0, y: 0});
-    // const [___, setPlayer_3] = useState<pos>({ x: 0, y: 0});
-    // const [____, setPlayer_4] = useState<pos>({ x: 0, y: 0});
 
     const [bottom, left, top, right] = cards;
 
@@ -352,11 +350,6 @@ const Display: React.FC<Props> = ({
     useEffect(() => {
         // Checks if the current player has passed go on their turn
         check_go();
-
-        places[pos_1.x][pos_1.y].player_1 = true;
-        places[pos_2.x][pos_2.y].player_2 = true;
-        places[pos_3.x][pos_3.y].player_3 = true;
-        places[pos_4.x][pos_4.y].player_4 = true;
     }, [pos_1, pos_2, pos_3, pos_4])
     
     return (
@@ -388,7 +381,7 @@ const Display: React.FC<Props> = ({
                                 {p.price} <br />
                                 {p.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
                                 {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
-                                {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
+                                {p.player_3 ? (<div>Player 3 <br /></div>) : null}
                                 {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
                                 {display_button(p)}
                             </div>

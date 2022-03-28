@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { pos } from '../Lists';
+import { place, pos } from '../Lists';
 import Dice from './Dice';
 
 interface Props {
@@ -15,6 +15,8 @@ interface Props {
     count: number,
     setCount: React.Dispatch<React.SetStateAction<number>>,
     setPrevious: React.Dispatch<React.SetStateAction<pos>>,
+    cards: place[][],
+    setCards: React.Dispatch<React.SetStateAction<place[][]>>
 }
 
 const Turn: React.FC<Props> = (
@@ -30,7 +32,9 @@ const Turn: React.FC<Props> = (
         pos_4,
         count,
         setCount,
-        setPrevious
+        setPrevious,
+        cards,
+        setCards
     }
 ) => {
     // "display" is used to display whose turn it is and the current dice values.
@@ -49,28 +53,28 @@ const Turn: React.FC<Props> = (
                 setCount: Used to change whose turn it is
                 setPrevious: Used to check if any player passed go
             */}
-            <Dice position={pos_1} setPos={setPos_1}  count={count} setCount={setCount} setPrevious={setPrevious} />
+            <Dice position={pos_1} setPos={setPos_1} cards={cards} setCards={setCards} count={count} setCount={setCount} setPrevious={setPrevious} />
         </div>
     )
 
     const player_2 = (
         <div>
             Player 2
-            <Dice position={pos_2} setPos={setPos_2} count={count} setCount={setCount}  setPrevious={setPrevious}/>
+            <Dice position={pos_2} setPos={setPos_2} cards={cards} setCards={setCards} count={count} setCount={setCount}  setPrevious={setPrevious}/>
         </div>
     )
 
     const player_3 = (
         <div>
             Player 3
-            <Dice position={pos_3} setPos={setPos_3} count={count} setCount={setCount} setPrevious={setPrevious}/>
+            <Dice position={pos_3} setPos={setPos_3} cards={cards} setCards={setCards} count={count} setCount={setCount} setPrevious={setPrevious}/>
         </div>
     )
 
     const player_4 = (
         <div>
             Player 4
-            <Dice position={pos_4} setPos={setPos_4} count={count} setCount={setCount} setPrevious={setPrevious}/>
+            <Dice position={pos_4} setPos={setPos_4} cards={cards} setCards={setCards} count={count} setCount={setCount} setPrevious={setPrevious}/>
         </div>
     )
 
