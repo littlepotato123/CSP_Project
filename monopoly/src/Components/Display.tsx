@@ -2,27 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { chance, collect_tax, community, place, places, PLAYERS, pos } from '../Lists';
 
 interface Props {
+    // Current Position of all players
     pos_1: pos,
     pos_2: pos,
     pos_3: pos,
     pos_4: pos,
+    // Used to determine whose turn it is
     count: number,
+    // Bank Balances of each player
     account_1: number,
     account_2: number,
     account_3: number,
     account_4: number,
+    // Function to change corresponding player's bank balances
     setAccount_1: React.Dispatch<React.SetStateAction<number>>,
     setAccount_2: React.Dispatch<React.SetStateAction<number>>,
     setAccount_3: React.Dispatch<React.SetStateAction<number>>,
     setAccount_4: React.Dispatch<React.SetStateAction<number>>,
-    setPos_1: React.Dispatch<React.SetStateAction<pos>>,
-    setPos_2: React.Dispatch<React.SetStateAction<pos>>,
-    setPos_3: React.Dispatch<React.SetStateAction<pos>>,
-    setPos_4: React.Dispatch<React.SetStateAction<pos>>,
+    // A position of the previous position of the current player
+    // Used to determine whether the player has passed "GO"
     previous: pos
 }
 
 const Display: React.FC<Props> = ({
+    // Implementing Parameters
     pos_1,
     pos_2, 
     pos_3,
@@ -36,14 +39,13 @@ const Display: React.FC<Props> = ({
     setAccount_2,
     setAccount_3,
     setAccount_4, 
-    setPos_1,
-    setPos_2,
-    setPos_3,
-    setPos_4,
     previous
 }) => {
-    const [cards, setCards] = useState(places);
+    // A temporary state that stores all of the cards
+    // A function that can change the temporary state of all of the cards
+    const [cards, setCards] = useState<place[][]>(places);
 
+    
     const [_, setPlayer_1] = useState<pos>({ x: 0, y: 0});
     const [__, setPlayer_2] = useState<pos>({ x: 0, y: 0});
     const [___, setPlayer_3] = useState<pos>({ x: 0, y: 0});
@@ -284,52 +286,64 @@ const Display: React.FC<Props> = ({
         )
     }
 
+    // Function to check if any of the player's have passed go on their turn
     const check_go = () => {
+        // Using count % 4 to determine whose turn it is
         switch(count % 4) {
+            // Player 4
             case 0:
+                // Checks if the previous row was 3 and the current is 0, meaning the player has passed GO
                 if(previous.x == 3 && pos_4.x == 0) {
+                    // Creates an alert to inform all players
                     alert("Player 4 Passed Go \n Collect $200")
+                    // Adds $200 to their bank balance
                     setAccount_4(account_4 + 200);
                 }
                 break
 
+            // Player 1
             case 1:
                 if(previous.x == 3 && pos_1.x == 0) {
                     alert("Player 1 Passed Go \n Collect $200");
                     setAccount_1(account_1 + 200);
                 }
-                // Player 1
                 break;
 
+            // Player 2
             case 2:
                 if(previous.x == 3 && pos_2.x == 0) {
                     alert("Player 2 Passed Go \n Collect $200")
                     setAccount_2(account_2 + 200);
                 }
-                //Player 2
                 break;
 
+            // Player 3
             case 3:
                 if(previous.x == 3 && pos_3.x == 0) {
                     alert("Player 3 Passed Go \n Collect $200")
                     setAccount_3(account_3 + 200);
                 }
-                //Player 3
                 break;
         }
     }
 
+    // Runs the function anytime any of the player's position changes
     useEffect(() => {
+        // Checks if the current player has passed go on their turn
         check_go();
+        // Updates the new positions of the players
         setPlayer_1(pos_1);
         setPlayer_2(pos_2);
         setPlayer_3(pos_3);
         setPlayer_4(pos_4);
+        // Creates a temporary list of all of the cards
         const cur_cards = cards;
+        // Updates the position of the players on the temporary list of cards
         cur_cards[pos_1.x][pos_1.y].player_1 = true;
         cur_cards[pos_2.x][pos_2.y].player_2 = true;
         cur_cards[pos_3.x][pos_3.y].player_3 = true;
         cur_cards[pos_4.x][pos_4.y].player_4 = true;
+        // Updates the real cards by setting it to the temporary list
         setCards(cur_cards);
     }, [pos_1, pos_2, pos_3, pos_4])
     

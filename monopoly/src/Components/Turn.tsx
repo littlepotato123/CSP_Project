@@ -3,6 +3,7 @@ import { pos } from '../Lists';
 import Dice from './Dice';
 
 interface Props {
+    // All Parameters are passed to Dice.tsx as a props
     setPos_1: React.Dispatch<React.SetStateAction<pos>>,
     setPos_2: React.Dispatch<React.SetStateAction<pos>>,
     setPos_3: React.Dispatch<React.SetStateAction<pos>>,
@@ -18,6 +19,7 @@ interface Props {
 
 const Turn: React.FC<Props> = (
     {
+        // Implementing Parameters
         setPos_1,
         setPos_2,
         setPos_3,
@@ -31,11 +33,22 @@ const Turn: React.FC<Props> = (
         setPrevious
     }
 ) => {
-    const [val, setVal] = useState<any>(null);
+    // "display" is used to display whose turn it is and the current dice values.
+    // Holds the return of Dice.tsx as a component rendered
+    // Initializing value is <div></div> to represent nothing
+    const [display, setDisplay] = useState<JSX.Element>(<div></div>);
     
+    // JSX code for the display if it is the corresponding player's turn
     const player_1 = (
         <div>
             Player 1
+            {/* Parameters 
+                pos: Position of the corresponding player 
+                setPos: Function to change the correponding player's position
+                count: Used to determine whose turn it is
+                setCount: Used to change whose turn it is
+                setPrevious: Used to check if any player passed go
+            */}
             <Dice position={pos_1} setPos={setPos_1}  count={count} setCount={setCount} setPrevious={setPrevious} />
         </div>
     )
@@ -61,29 +74,37 @@ const Turn: React.FC<Props> = (
         </div>
     )
 
+    // Re-renders this element any time the value of count changes, therefore changes everytime the turn moves onto the next player's turn
     useEffect(() => {
+        // Count % 4 because there are 4 players and it is repeating so depending on the remainder of 4, it accurately represents whose turn it is
         switch(count % 4) {
+            // Player 1
             case 1:
-                setVal(player_1);
+                // Depending on the value of count % 4, the value of display is changed to the corresponding player's JSX code
+                setDisplay(player_1);
                 break;
                 
+            // Player 2
             case 2:
-                setVal(player_2);
+                setDisplay(player_2);
                 break;
             
+            // Player 3
             case 3:
-                setVal(player_3);
+                setDisplay(player_3);
                 break;
             
+            // Player 4
             case 0:
-                setVal(player_4);
+                setDisplay(player_4);
                 break;
         }
     }, [count])
     
     return (
         <div className="turn">
-            {val}
+            {/* Renders the current value of display and updates everytime count is changed (player's turn is changed) */}
+            {display}
         </div>
     )
 }
