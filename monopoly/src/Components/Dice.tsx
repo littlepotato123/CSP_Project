@@ -76,25 +76,30 @@ const Dice: React.FC<Props> = ({
             const diff = y- sum;
             if(diff < 0) {
                 if(x === 0) {
+                    // If the difference is greater than 0 and the player is in the list 0, move player to list 1
+                    x = 1;
+                    // Setting the y-position to 10 - (difference) because list is backwards  
+                    y = 10 - diff
                     setPos({
-                        // If the difference is greater than 0 and the player is in the list 0, move player to list 1
-                        x: 1,
-                        // Setting the y-position to 10 - (difference) because list is backwards  
-                        y: 10 - diff
+                        x,
+                        y
                     })
                 } else {
+                    // If the difference is less than 0 and the player is in the list 1, move player to list 2
+                    x = 2;
+                    // List is offset by 1 (starting at 0) and the 
+                    y = diff - 1
                     setPos({
-                        // If the difference is less than 0 and the player is in the list 1, move player to list 2
-                        x: 2,
-                        // List is offset by 1 (starting at 0) and the 
-                        y: diff - 1
+                        x,
+                        y
                     })
                 }
             } else {
                 // If the difference is greater than 0, then the player remains in the same row and the y-value becomes the difference
+                y = diff;
                 setPos({
                     x,
-                    y: diff
+                    y
                 });
             }
         } else {
@@ -102,32 +107,60 @@ const Dice: React.FC<Props> = ({
             if(sum + y >= 10) {
                 if(x === 3) {
                     const dif = sum - (10 - y);
+
+                    // If the player is at row 3, they must go back to row 0
+                    x = 0;
+                    // Considering the offset of the movement in row 3 and row 0
+                    // Row 0 is backwards as well
+                    y = 10 - dif;
                     setPos({
-                        // If the player is at row 3, they must go back to row 0
-                        x: 0,
-                        // Considering the offset of the movement in row 3 and row 0
-                        // Row 0 is backwards as well
-                        y: 10 - dif
+                        x,
+                        y
                     });
                 } else {
+                    // 
                     const dif = sum - (10 - y);
+                    // Moving to the next row
+                    x += 1
+                    // Considering the offset of the movement in the starting row and the next row
+                    y = dif
                     setPos({
-                        // Moving to the next row
-                        x: x + 1,
-                        // Considering the offset of the movement in the starting row and the next row
-                        y: dif
+                        x,
+                        y
                     });
                 }
             } else {
                 // If the sum + y is less than 10, the player remains on the same row
+                
+                // Y-value becomes the new sum
+                y += sum
                 setPos({
                     // X-value (row) stays the same
                     x,
-                    // Y-value becomes the new sum
-                    y: y + sum
+                    y
                 });
             }
         }
+
+        // console.log(x);
+        // console.log(y);
+
+        // switch(count % 4) {
+        //     case 0:
+        //         places[x][y].player_4 = true;
+        //         break;
+
+        //     case 1:
+        //         places[x][y].player_1 = true;
+        //         break;
+
+        //     case 2:
+        //         places[x][y].player_2 = true;
+        //         break;
+
+        //     case 3:
+        //         places[x][y].player_3 = true;
+        // }
     }
 
     return (

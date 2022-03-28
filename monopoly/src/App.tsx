@@ -4,11 +4,14 @@ import Bank from './Components/Bank_Display';
 import Display from './Components/Display';
 import Turn from './Components/Turn';
 import './display.css';
-import { pos } from './Lists';
+import { place, places, pos } from './Lists';
 
 // Main Display Element
 // Functional Component
 const App: React.FC = () => {
+  // Variable of all the cards and function to change the cards
+  const [cards, setCards] = useState<place[][]>(places)
+
   // Used to check whether a player has passed the "GO" on the board 
   const [previous_pos, setPrevious] = useState<pos>({
     x: 0,
@@ -52,7 +55,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Display previous={previous_pos} count={count} pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} account_1={account_1} account_2={account_2} account_3={account_3} account_4={account_4} setAccount_1={setBank_1} setAccount_2={setBank_2} setAccount_3={setBank_3} setAccount_4={setBank_4} />
+      <Display previous={previous_pos} setPos_1={setPos_1} setPos_2={setPos_2} setPos_3={setPos_3} setPos_4={setPos_4} count={count} pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} account_1={account_1} account_2={account_2} account_3={account_3} account_4={account_4} setAccount_1={setBank_1} setAccount_2={setBank_2} setAccount_3={setBank_3} setAccount_4={setBank_4} />
       <Bank account_1={account_1} account_2={account_2} account_3={account_3} account_4={account_4} />
       <Turn setPrevious={setPrevious} count={count} setCount={setCount} pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} setPos_1={setPos_1} setPos_2={setPos_2} setPos_3={setPos_3} setPos_4={setPos_4} />
     </div>

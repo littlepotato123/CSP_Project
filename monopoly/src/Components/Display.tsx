@@ -21,6 +21,10 @@ interface Props {
     setAccount_4: React.Dispatch<React.SetStateAction<number>>,
     // A position of the previous position of the current player
     // Used to determine whether the player has passed "GO"
+    setPos_1: React.Dispatch<React.SetStateAction<pos>>,
+    setPos_2: React.Dispatch<React.SetStateAction<pos>>,
+    setPos_3: React.Dispatch<React.SetStateAction<pos>>,
+    setPos_4: React.Dispatch<React.SetStateAction<pos>>,
     previous: pos
 }
 
@@ -39,6 +43,10 @@ const Display: React.FC<Props> = ({
     setAccount_2,
     setAccount_3,
     setAccount_4, 
+    setPos_1,
+    setPos_2,
+    setPos_3,
+    setPos_4,
     previous
 }) => {
     // A temporary state that stores all of the cards
@@ -46,10 +54,10 @@ const Display: React.FC<Props> = ({
     const [cards, setCards] = useState<place[][]>(places);
 
     
-    const [_, setPlayer_1] = useState<pos>({ x: 0, y: 0});
-    const [__, setPlayer_2] = useState<pos>({ x: 0, y: 0});
-    const [___, setPlayer_3] = useState<pos>({ x: 0, y: 0});
-    const [____, setPlayer_4] = useState<pos>({ x: 0, y: 0});
+    // const [_, setPlayer_1] = useState<pos>({ x: 0, y: 0});
+    // const [__, setPlayer_2] = useState<pos>({ x: 0, y: 0});
+    // const [___, setPlayer_3] = useState<pos>({ x: 0, y: 0});
+    // const [____, setPlayer_4] = useState<pos>({ x: 0, y: 0});
 
     const [bottom, left, top, right] = cards;
 
@@ -173,33 +181,38 @@ const Display: React.FC<Props> = ({
 
     const rent_func = (p: place) => {
         if(p.price) {
-            // Alert who has to pay rent to who
             const rent_price = p.price / 10;
             switch(count % 4) {
+                // Player 4 Turn
                 case 0:
                     switch(p.bought) {
                         case PLAYERS.PLAYER_1:
                             setAccount_4(account_4 - rent_price);
                             setAccount_1(account_1 + rent_price);
+                            alert(`Player 4 must pay Player 1 $${rent_price} of rent for ${p.name}`)
                             break;
 
                         case PLAYERS.PLAYER_2:
                             setAccount_4(account_4 - rent_price);
                             setAccount_2(account_2 + rent_price);
+                            alert(`Player 4 must pay Player 2 $${rent_price} of rent for ${p.name}`)
                             break;
 
                         case PLAYERS.PLAYER_3:
                             setAccount_4(account_4 - rent_price);
                             setAccount_3(account_3 + rent_price);
+                            alert(`Player 4 must pay Player 3 $${rent_price} of rent for ${p.name}`)
                             break;
                     }
                     break;
 
+                // Player 1 Turn
                 case 1:
                     switch(p.bought) {
                         case PLAYERS.PLAYER_2:
                             setAccount_1(account_1 - rent_price);
                             setAccount_2(account_2 + rent_price);
+                            alert(`Player 1 must pay Player 2 $${rent_price} of rent for ${p.name}`)
                             break;
 
                         case PLAYERS.PLAYER_3:
@@ -214,6 +227,7 @@ const Display: React.FC<Props> = ({
                     }
                     break;
 
+                // Player 2 Turn
                 case 2:
                     switch(p.bought) {
                         case PLAYERS.PLAYER_1:
@@ -233,6 +247,7 @@ const Display: React.FC<Props> = ({
                     }
                     break;
 
+                // Player 3 Turn
                 case 3:
                     switch(p.bought) {
                         case PLAYERS.PLAYER_1:
@@ -255,32 +270,38 @@ const Display: React.FC<Props> = ({
         }
     }
     
-    const display_b = (p: place) => {
-        let but = <div></div>;
+    // Function is iterated through every single card
+    // Parameter: "p" is for every single card and type is place
+    const display_button = (p: place) => {
+        // Button Initial Value
+        let button = <div></div>;
         let rent = <div></div>;
         if(p.bought) {
+            // If the card is already bought, other players must pay rent if they land on the card
             rent = <button onClick={() => {
                 rent_func(p)
             }}>Rent</button>
         } else if(p.tax) {
-            but = <button onClick={tax}>Pay Tax</button>
+            // If the card is a "income tax" card
+            button = <button onClick={tax}>Pay Tax</button>
         } else if(p.community) {
-            but = <button onClick={community_func}>Draw Card</button>
+            // Community Chest Cards
+            button = <button onClick={community_func}>Draw Card</button>
         } else if(p.chance) {
-            but = <button onClick={chance_func}>Draw Card</button>
-        } else if(p.jail || p.go) {
-            but = <div></div>
-        }
-        else if(p.park) {
-            but = <div></div>
+            // Chance cards
+            button = <button onClick={chance_func}>Draw Card</button>
+        } else if(p.jail || p.go || p.park) {
+            // If the card is a jail, go, or park card there is no corresponding button for them
+            button = <div></div>
         }
         else {
-            but = <button onClick={buy}>Buy</button>
+            // If the card is a regular place, there must be a "buy" button
+            button = <button onClick={buy}>Buy</button>
         }
 
         return (
             <div>
-                {but}
+                {button}
                 {rent}
             </div>
         )
@@ -331,20 +352,11 @@ const Display: React.FC<Props> = ({
     useEffect(() => {
         // Checks if the current player has passed go on their turn
         check_go();
-        // Updates the new positions of the players
-        setPlayer_1(pos_1);
-        setPlayer_2(pos_2);
-        setPlayer_3(pos_3);
-        setPlayer_4(pos_4);
-        // Creates a temporary list of all of the cards
-        const cur_cards = cards;
-        // Updates the position of the players on the temporary list of cards
-        cur_cards[pos_1.x][pos_1.y].player_1 = true;
-        cur_cards[pos_2.x][pos_2.y].player_2 = true;
-        cur_cards[pos_3.x][pos_3.y].player_3 = true;
-        cur_cards[pos_4.x][pos_4.y].player_4 = true;
-        // Updates the real cards by setting it to the temporary list
-        setCards(cur_cards);
+
+        places[pos_1.x][pos_1.y].player_1 = true;
+        places[pos_2.x][pos_2.y].player_2 = true;
+        places[pos_3.x][pos_3.y].player_3 = true;
+        places[pos_4.x][pos_4.y].player_4 = true;
     }, [pos_1, pos_2, pos_3, pos_4])
     
     return (
@@ -360,7 +372,7 @@ const Display: React.FC<Props> = ({
                                 {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
                                 {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
                                 {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
-                                {display_b(p)}
+                                {display_button(p)}
                             </div>
                         )
                     })
@@ -378,7 +390,7 @@ const Display: React.FC<Props> = ({
                                 {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
                                 {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
                                 {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
-                                {display_b(p)}
+                                {display_button(p)}
                             </div>
                         )
                     })
@@ -396,7 +408,7 @@ const Display: React.FC<Props> = ({
                                 {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
                                 {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
                                 {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
-                                {display_b(p)}
+                                {display_button(p)}
                             </div>
                         )
                     })
@@ -414,7 +426,7 @@ const Display: React.FC<Props> = ({
                                 {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
                                 {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
                                 {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
-                                {display_b(p)}
+                                {display_button(p)}
                             </div>
                         )
                     })
