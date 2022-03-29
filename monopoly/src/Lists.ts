@@ -1,4 +1,4 @@
-
+// Used for the "bought" property in each card
 export enum PLAYERS {
     PLAYER_1 = "player_1",
     PLAYER_2 = "player_2",
@@ -6,32 +6,49 @@ export enum PLAYERS {
     PLAYER_4 = "player_4"
 }
 
+// The type of every card
 export type place= {
     name: string,
     price?: number,
+    // Determines whether the card is a community chest card
     community?: boolean,
+    // Determines whether the card is a chance card
     chance?: boolean,
+    // Determines whether the card is the "GO!" card
     go?: boolean,
+    // Determines whether the card is the "JAIL" card
     jail?: boolean,
+    // Determines whether the card is the "Income Tax" card
     tax?: boolean,
+    // Determines whether the card is the "Free Parking" card
     park?: boolean,
+    // These booleans are used to determine whether any player is currently landed on the card
+    // This is used in Display.tsx to actually display the player on the card
     player_1?: boolean,
     player_2?: boolean,
     player_3?: boolean,
     player_4?: boolean,
+    // Used to determine which player owns the card
     bought?: PLAYERS | null
 };
 
+// Type used to determine the position of a player
 export type pos = {
+    // Which row in the 2D array of all of the cards
     x: number,
+    // Which element in the row in the 2D array of all the cards
     y: number
 }
 
+// The type of the speical cards such as the chance and community chest cards
 type special = {
     name: string,
+    // All cards are money related special cards so they require the correponding player's bank account current value and the function to change that variable
     func: (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => void
 }
 
+// All Chance Cards
+// Array of Special Cards
 export const chance: special[] = [
     {
         name: "Speeding Fine",
@@ -65,6 +82,8 @@ export const chance: special[] = [
     }
 ]
 
+// All Community Chest Cards
+// Array of Special Cards
 export const community: special[] = [
     {
         name: "You inherit $100",
@@ -116,11 +135,8 @@ export const community: special[] = [
     }
 ]
 
-export const collect_tax = (balance: number, setBalance: React.Dispatch<React.SetStateAction<number>>) => {
-    setBalance(balance-200);
-}
-
-
+// 2D array of all of the cards
+// Organized into 4 different arrays, each array corresponds to a row of cards
 export const places: Array<Array<place>> = [
     [
         {

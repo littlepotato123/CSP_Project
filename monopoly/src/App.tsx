@@ -66,9 +66,38 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Display cards={cards} setCards={setCards} previous={previous_pos} setPos_1={setPos_1} setPos_2={setPos_2} setPos_3={setPos_3} setPos_4={setPos_4} count={count} pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} account_1={account_1} account_2={account_2} account_3={account_3} account_4={account_4} setAccount_1={setBank_1} setAccount_2={setBank_2} setAccount_3={setBank_3} setAccount_4={setBank_4} />
-      <Bank account_1={account_1} account_2={account_2} account_3={account_3} account_4={account_4} />
-      <Turn cards={cards} setCards={setCards} setPrevious={setPrevious} count={count} setCount={setCount} pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} setPos_1={setPos_1} setPos_2={setPos_2} setPos_3={setPos_3} setPos_4={setPos_4} />
+      {/* Cards of all Displays */}
+      <Display 
+        // List of all Cards and Function to change all the cards
+        cards={cards} setCards={setCards} 
+        // Function to change all the positions of the players
+        setPos_1={setPos_1} setPos_2={setPos_2} setPos_3={setPos_3} setPos_4={setPos_4} 
+        // Checking whose turn it is
+        count={count} 
+        // All of te positions and the previous position to check if the player has passed go
+        previous={previous_pos} pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} 
+        // Bank Accounts of all players and the functions to change the bank accounts of the players
+        account_1={account_1} account_2={account_2} account_3={account_3} account_4={account_4} 
+        setAccount_1={setBank_1} setAccount_2={setBank_2} setAccount_3={setBank_3} setAccount_4={setBank_4} 
+      />
+      {/* Display All Current Bank Accounts */}
+      <Bank 
+        // Passing all of the current bank accounts parameters
+        account_1={account_1} account_2={account_2} account_3={account_3} account_4={account_4} 
+      />
+      {/* Controls the turn and the dice roll */}
+      <Turn 
+        // List of all the cards and a function to change of all of the cards
+        // Used to update all of the positions of the card by changing the boolean of each card
+        cards={cards} setCards={setCards} 
+        // Changing the previous position as the player's position is changing
+        setPrevious={setPrevious} 
+        // Changin the player's turn
+        count={count} setCount={setCount} 
+        // Positions of all of the players and the functions to change the players
+        pos_1={pos_1} pos_2={pos_2} pos_3={pos_3} pos_4={pos_4} 
+        setPos_1={setPos_1} setPos_2={setPos_2} setPos_3={setPos_3} setPos_4={setPos_4} 
+      />
     </div>
   )
 }

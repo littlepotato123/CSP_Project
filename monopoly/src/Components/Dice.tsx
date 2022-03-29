@@ -147,23 +147,29 @@ const Dice: React.FC<Props> = ({
             }
         }
 
+        // Depending on the player's turn, the temporary deck of cards is updated to change to the new position of the corresponding player
         switch(count % 4) {
             case 0:
+                // Adding the corresponding player to their new positioned card
                 cur_cards[x][y].player_4 = true;
                 break;
 
             case 1:
+                // Adding the corresponding player to their new positioned card
                 cur_cards[x][y].player_1 = true;
                 break;
 
             case 2:
+                // Adding the corresponding player to their new positioned card
                 cur_cards[x][y].player_2 = true;
                 break;
 
             case 3:
+                // Adding the corresponding player to their new positioned card
                 cur_cards[x][y].player_3 = true;
         }
 
+        // Updating the state of the cards with the new temporary and changed list of cards
         setCards(cur_cards);
     }
 

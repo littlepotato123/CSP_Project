@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { chance, collect_tax, community, place, PLAYERS, pos } from '../Lists';
+import { chance, community, place, PLAYERS, pos } from '../Lists';
 
 interface Props {
     // Current Position of all players
@@ -26,8 +26,11 @@ interface Props {
     setPos_3: React.Dispatch<React.SetStateAction<pos>>,
     setPos_4: React.Dispatch<React.SetStateAction<pos>>,
 
+    // List of all of the cards for display
     cards: place[][],
+    // Function to manipulate specific properties of each card in the list
     setCards: React.Dispatch<React.SetStateAction<place[][]>>
+    // lePrevious position of corresponding player to check if they passed "GO"
     previous: pos
 }
 
@@ -54,25 +57,35 @@ const Display: React.FC<Props> = ({
     setCards,
     previous
 }) => {
-    // A temporary state that stores all of the cards
-    // A function that can change the temporary state of all of the cards
-
+    // Deconstructing the 2D array into all of the different rows
     const [bottom, left, top, right] = cards;
 
+    // Function that runs when a player buys the card that they land on
     const buy = () => {
+        // Temporary list of cards to manipulate
         const cur_cards = cards;
-        let card;
-        let price: number | undefined = 0;
+        // Card is a temporary variable to store the card that the player has landed on
+        // Price is the price of the card that the corresponding player has landed on
+        let card, price: number | undefined ;
+        // Determines whose turn it is using the count variable
+        // Count % 4 because there are 4 players
         switch(count % 4) {
+            // Player 4
             case 0:
+                // Updating the card variable to what the corresponding player has landed on
+                // Using temporary list
                 card = cur_cards[pos_4.x][pos_4.y];
-                card.bought = PLAYERS.PLAYER_4;
                 price = card.price;
+                // Checking whether the card is a type to be able to be bought 
                 if(price) {
+                // Manipulating the bought property to change to the corresponding player that bought the card
+                    card.bought = PLAYERS.PLAYER_4;
+                    // Changing the bank account to subtract the card price
                     setAccount_4(account_4 - price)
                 }
                 break;
             
+            // Player 1
             case 1:
                 card = cur_cards[pos_1.x][pos_1.y];
                 card.bought = PLAYERS.PLAYER_1;
@@ -82,6 +95,7 @@ const Display: React.FC<Props> = ({
                 }
                 break;
             
+            // Player 2
             case 2:
                 card = cur_cards[pos_2.x][pos_2.y];
                 card.bought = PLAYERS.PLAYER_2;
@@ -91,6 +105,7 @@ const Display: React.FC<Props> = ({
                 }
                 break;
             
+            // Player 3
             case 3:
                 card = cur_cards[pos_3.x][pos_3.y];
                 card.bought = PLAYERS.PLAYER_3;
@@ -103,48 +118,68 @@ const Display: React.FC<Props> = ({
         setCards(cur_cards);
     }
 
+    // Function that runs if a player lands on the "Income Tax" card
     const tax = () => {
-        window.alert(`Player Must pay tax. \n $200}`)
-        if(collect_tax) {
-            switch(count % 4) {
-                case 0: 
-                    collect_tax(account_4, setAccount_4);
-                    break;
-                
-                case 1:
-                    collect_tax(account_1, setAccount_1);
-                    break;
+        // Alerting the Player
+        window.alert(`Player Must pay tax. \n $200`)
+        // Determining whose turn it is
+        switch(count % 4) {
+            // Player 4
+            case 0: 
+                // Tax is a flat fee of $200
+                // Using the SetAccount function to remove 200 from the corresponding player's bank account
+                setAccount_4(account_4 - 200);
+                break;
+            
+            // Player 1
+            case 1:
+                setAccount_1(account_1 - 200);
+                break;
 
-                case 2:
-                    collect_tax(account_2, setAccount_2);
-                    break;
+            // Player 2
+            case 2:
+                setAccount_2(account_2 - 200);
+                break;
 
-                case 3:
-                    collect_tax(account_3, setAccount_3);
-                    break;
-            }
-
+            // Player 3
+            case 3:
+                setAccount_3(account_3 - 200);
+                break;
         }
     }
 
+    // Function runs when a player lands on a community chest card to select a random card from the list of community chest cards and run the special function for each card
     const community_func = (): void => {
-        const card = community[Math.floor(Math.random() * (community.length - 1) + 1)]
+        // "community" is imported from the Lists.ts which includes a list of all the community chest cards and their functions
+
+        // Select Random Card
+        // community.length - 1 is the maximum index
+        // Minimum is 0
+        // Math.floor() because it must be a whole number since it is an index
+        const card = community[Math.floor(Math.random() * (community.length - 1))]
+        // Determining whose turn it is
         switch(count % 4) {
+            // Player 4
             case 0:
+                // Alert Player
                 alert(`Player 4: ${card.name}`)
+                // Passing the bank account and function to manipulate the bank account into the function of the special card
                 card.func(account_4, setAccount_4)
                 break;
 
+            // Player 1
             case 1:
                 alert(`Player 1: ${card.name}`)
                 card.func(account_1, setAccount_1)
                 break;
 
+            // Player 2
             case 2:
                 alert(`Player 2: ${card.name}`)
                 card.func(account_2, setAccount_2)
                 break;
 
+            // Player 3
             case 3:
                 alert(`Player 3: ${card.name}`)
                 card.func(account_3, setAccount_3)
@@ -152,24 +187,38 @@ const Display: React.FC<Props> = ({
         }
     }
 
+    // Function runs when a player lands on a chance card to select a random card from the list of chance cards and run the special function for each card
     const chance_func = (): void => {
-        const card = chance[Math.floor(Math.random() * (chance.length - 1) + 1)]
+        // "chance" is imported from Lists.ts which includes a list of all the change cards and their functions
+
+        // Selecting Random Card
+        // Maximum index is chance.length - 1
+        // Minimum index is 0
+        // Math.floor() because idex must be a whole number
+        const card = chance[Math.floor(Math.random() * (chance.length - 1))]
+        // Determining whose turn it is
         switch(count % 4) {
+            // Player 4
             case 0:
+                // Alerting Player
                 alert(`Player 4: ${card.name}`)
+                // Passing Bank account and function to manipulate bank account to the function of the special card
                 card.func(account_4, setAccount_4)
                 break;
 
+            // Player 1
             case 1:
                 alert(`Player 1: ${card.name}`)
                 card.func(account_1, setAccount_1)
                 break;
 
+            // Player 2
             case 2:
                 alert(`Player 2: ${card.name}`)
                 card.func(account_2, setAccount_2)
                 break;
 
+            // Player 3
             case 3:
                 alert(`Player 3: ${card.name}`)
                 card.func(account_3, setAccount_3)
@@ -177,16 +226,25 @@ const Display: React.FC<Props> = ({
         }
     }
 
+    // When a player lands on another player's property, this function decides how much to pay and handles the money transaction
     const rent_func = (p: place) => {
+        // Checking whether this card is available to rent
         if(p.price) {
+            // Rent Price is regular price divided by 10
             const rent_price = p.price / 10;
+            // Deciding whose turn it is
             switch(count % 4) {
                 // Player 4 Turn
                 case 0:
+                    // Finding who the owner of the property is
                     switch(p.bought) {
+                        // Player 1 owns the card and Player 4 landed on it
                         case PLAYERS.PLAYER_1:
+                            // Player 4 subtracts the rent_price from total 
                             setAccount_4(account_4 - rent_price);
+                            // Player 1 adds the rent_price
                             setAccount_1(account_1 + rent_price);
+                            // Alerts both players
                             alert(`Player 4 must pay Player 1 $${rent_price} of rent for ${p.name}`)
                             break;
 
@@ -297,6 +355,7 @@ const Display: React.FC<Props> = ({
             button = <button onClick={buy}>Buy</button>
         }
 
+        // Returns the corresponding buttons depending on the properties of the card
         return (
             <div>
                 {button}
@@ -356,16 +415,21 @@ const Display: React.FC<Props> = ({
         <div>
             <div className="top-grid">
                 {
-                    top.map((p: place, i) => {
+                    // Loop through the deconstructed row of cards from the 2D array of all of the cards
+                    top.map((card: place) => {
                         return (
-                            <div className={p.bought ? p.bought : undefined }>
-                                {p.name} <br />
-                                {p.price} <br />
-                                {p.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
-                                {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
-                                {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
-                                {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
-                                {display_button(p)}
+                            // Class name is a variable that chnages the color of the card based on who owns the card
+                            // If the card does have a bought property, then the class name, which controls the styling will be either "player_1" or etc. or undefined
+                            <div className={card.bought ? card.bought : undefined }>
+                                {card.name} <br />
+                                {card.price} <br />
+                                {/* Depending on whether the corresponding player has landed on this card, the card will display that player or nothing */}
+                                {card.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
+                                {card.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
+                                {card.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
+                                {card.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
+                                {/* The display_button method uses the card's properties to determine which buttons if any should be displayed on the card */}
+                                {display_button(card)}
                             </div>
                         )
                     })
@@ -374,16 +438,16 @@ const Display: React.FC<Props> = ({
             <br />
             <div className="left-grid">
                 {
-                    left.map((p: place, i) => {
+                    left.map((card: place) => {
                         return (
-                            <div className={p.bought ? p.bought : undefined }>
-                                {p.name} <br />
-                                {p.price} <br />
-                                {p.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
-                                {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
-                                {p.player_3 ? (<div>Player 3 <br /></div>) : null}
-                                {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
-                                {display_button(p)}
+                            <div className={card.bought ? card.bought : undefined }>
+                                {card.name} <br />
+                                {card.price} <br />
+                                {card.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
+                                {card.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
+                                {card.player_3 ? (<div>Player 3 <br /></div>) : null}
+                                {card.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
+                                {display_button(card)}
                             </div>
                         )
                     })
@@ -392,16 +456,16 @@ const Display: React.FC<Props> = ({
             <br />
             <div className="right-grid">
                 {
-                    right.map((p: place, i) => {
+                    right.map((card: place) => {
                         return (
-                            <div className={p.bought ? p.bought : undefined }>
-                                {p.name} <br />
-                                {p.price} <br />
-                                {p.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
-                                {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
-                                {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
-                                {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
-                                {display_button(p)}
+                            <div className={card.bought ? card.bought : undefined }>
+                                {card.name} <br />
+                                {card.price} <br />
+                                {card.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
+                                {card.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
+                                {card.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
+                                {card.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
+                                {display_button(card)}
                             </div>
                         )
                     })
@@ -410,16 +474,16 @@ const Display: React.FC<Props> = ({
             <br />
             <div className="bottom-grid">
                 {
-                    bottom.map((p: place, i) => {
+                    bottom.map((card: place) => {
                         return (
-                            <div className={p.bought ? p.bought : undefined}>
-                                {p.name} <br />
-                                {p.price} <br />
-                                {p.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
-                                {p.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
-                                {p.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
-                                {p.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
-                                {display_button(p)}
+                            <div className={card.bought ? card.bought : undefined}>
+                                {card.name} <br />
+                                {card.price} <br />
+                                {card.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
+                                {card.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
+                                {card.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
+                                {card.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
+                                {display_button(card)}
                             </div>
                         )
                     })
