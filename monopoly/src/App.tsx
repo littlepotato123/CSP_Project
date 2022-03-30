@@ -1,3 +1,4 @@
+// App.tsx
 // This file centralizes all components into one component, making the entire page
 // This file also contains all of the central states, such as the state of the entire list of cards, the state of each player's position and bank account state.
 // This file renders all CSS styling
