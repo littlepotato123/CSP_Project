@@ -1,3 +1,4 @@
+// Bank_Display.tsx
 // Element to display all of the current bank accounts of the players
 import React from 'react';
 
