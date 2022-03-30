@@ -1,3 +1,4 @@
+// Dice.tsx
 // Element used to implement the Dice Roll and directly moving the player to the new position
 import React, { useState } from 'react';
 // Place: The type of each card to get type inference
