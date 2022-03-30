@@ -1,3 +1,4 @@
+/* Used to display the rows of cards horizontally */
 .bottom-grid {
   display: grid;
   grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
@@ -10,6 +11,7 @@
   grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
 }
 
+/* Styling for each card in the row */
 .bottom-grid > div {
   border: black dashed;
   margin-left: 10px;
@@ -30,11 +32,13 @@
   text-align: center;
 }
 
+/* Used to display the row of cards vertically */
 .left-grid {
   display: grid;
   grid-template-rows: 11% 11% 11% 11% 11% 11% 11% 11% 11%
 }
 
+/* Styling for each card in the row */
 .left-grid > div {
   padding: 5px;
   border-radius: 10px;

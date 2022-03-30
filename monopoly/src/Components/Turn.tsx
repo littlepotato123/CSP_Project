@@ -1,3 +1,4 @@
+// This file manages the player's turn and displays the Dice.tsx which allows the users to move and roll the dice
 import React, { useEffect, useState } from 'react';
 import { place, pos } from '../Lists';
 import Dice from './Dice';
@@ -80,6 +81,8 @@ const Turn: React.FC<Props> = (
 
     // Re-renders this element any time the value of count changes, therefore changes everytime the turn moves onto the next player's turn
     useEffect(() => {
+        // Example of Seelection
+
         // Count % 4 because there are 4 players and it is repeating so depending on the remainder of 4, it accurately represents whose turn it is
         switch(count % 4) {
             // Player 1

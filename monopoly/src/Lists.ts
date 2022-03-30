@@ -1,3 +1,6 @@
+// This file contains the main list of cards used the progra, the main list of community chest and chance cards, and the main types used such as
+// the position type, the type of each card, and the enumarator to manage players
+
 // Used for the "bought" property in each card
 export enum PLAYERS {
     PLAYER_1 = "player_1",
@@ -29,6 +32,7 @@ export type place= {
     player_3?: boolean,
     player_4?: boolean,
     // Used to determine which player owns the card
+    // PLAYERS is the enumarator
     bought?: PLAYERS | null
 };
 
@@ -136,6 +140,7 @@ export const community: special[] = [
 ]
 
 // 2D array of all of the cards
+// Array of card which has type "place"
 // Organized into 4 different arrays, each array corresponds to a row of cards
 export const places: Array<Array<place>> = [
     [

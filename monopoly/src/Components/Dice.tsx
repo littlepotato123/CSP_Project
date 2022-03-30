@@ -1,8 +1,9 @@
 // Element used to implement the Dice Roll and directly moving the player to the new position
 import React, { useState } from 'react';
-// Places: The List of all cards
-// Pos: A type that has an x and y value
+// Place: The type of each card to get type inference
+// Pos: A type that has an x and y value used to represent the position of each player
 import { place, pos } from '../Lists';
+
 
 // Creating Parameters
 interface Props {
@@ -34,6 +35,7 @@ const Dice: React.FC<Props> = ({
     // Initializing the dice variables and the functions used to chang ethe dice values
     const [dice_one, setDice_1] = useState(1);
     const [dice_two, setDice_2] = useState(1);
+
     // Determines whether the player has clicked roll button
     // Used to prevent a player from rolling twice in one turn
     const [clicked, setClicked] = useState<boolean>(false);
@@ -48,6 +50,9 @@ const Dice: React.FC<Props> = ({
 
         // Setting the previous position to the current position because position is about to change
         setPrevious({x, y});
+
+        // Example of Selection
+
         // Switch statement to determine which player it is
         switch(count % 4) {
             // Player 1
@@ -74,6 +79,7 @@ const Dice: React.FC<Props> = ({
                 cur_cards[x][y].player_4 = false;
                 break;
         }
+
         // Sum of dice values
         const sum = dice_1 + dice_2
         
@@ -147,6 +153,8 @@ const Dice: React.FC<Props> = ({
             }
         }
 
+        // Example of Selection 
+
         // Depending on the player's turn, the temporary deck of cards is updated to change to the new position of the corresponding player
         switch(count % 4) {
             case 0:
@@ -181,7 +189,11 @@ const Dice: React.FC<Props> = ({
                 <br />
                 {dice_two}
             </div>
+            
             {/* Roll Button */}
+            {/* This button is the way a user can interact with the interface buy click this button, which allows them to roll the dice and move to the designated
+                spot 
+            */}
             <button 
                 // The boolean "clicked" controls the disabled value, when true the button cannot be clicked
                 // Used to prevent a player from rolling the dice twice
@@ -207,6 +219,7 @@ const Dice: React.FC<Props> = ({
                 Roll
             </button>
 
+            {/* This button is another way the user can interact with the interface by moving to the next player's turn */}
             <button 
                 onClick={() => {
                     // Moving to tjhe next player's turn

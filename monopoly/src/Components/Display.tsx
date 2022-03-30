@@ -1,6 +1,18 @@
-import React, { useEffect } from 'react';
-import { chance, community, place, PLAYERS, pos } from '../Lists';
+// This file displays all of the cards from the main list of cards in Lists.ts
+import React, { /* useEffect is a function used to run a function whenever the page re-renders or a central state is changed */ useEffect } from 'react';
+import {
+    // List of all the chance and ocmmunity chest cards
+    chance,
+    community,
+    // The type of each card to get type inference
+    place,
+    // The enumarator for displaying which card is owned by which player
+    PLAYERS,
+    // The type of the positions of each player to get type inference
+    pos
+} from '../Lists';
 
+// List of all parameters for the Display component
 interface Props {
     // Current Position of all players
     pos_1: pos,
@@ -19,18 +31,13 @@ interface Props {
     setAccount_2: React.Dispatch<React.SetStateAction<number>>,
     setAccount_3: React.Dispatch<React.SetStateAction<number>>,
     setAccount_4: React.Dispatch<React.SetStateAction<number>>,
-    // A position of the previous position of the current player
-    // Used to determine whether the player has passed "GO"
-    setPos_1: React.Dispatch<React.SetStateAction<pos>>,
-    setPos_2: React.Dispatch<React.SetStateAction<pos>>,
-    setPos_3: React.Dispatch<React.SetStateAction<pos>>,
-    setPos_4: React.Dispatch<React.SetStateAction<pos>>,
 
     // List of all of the cards for display
     cards: place[][],
     // Function to manipulate specific properties of each card in the list
     setCards: React.Dispatch<React.SetStateAction<place[][]>>
-    // lePrevious position of corresponding player to check if they passed "GO"
+    
+    // Previous position of corresponding player to check if they passed "GO"
     previous: pos
 }
 
@@ -48,11 +55,7 @@ const Display: React.FC<Props> = ({
     setAccount_1,
     setAccount_2,
     setAccount_3,
-    setAccount_4, 
-    setPos_1,
-    setPos_2,
-    setPos_3,
-    setPos_4,
+    setAccount_4,
     cards,
     setCards,
     previous
@@ -67,6 +70,9 @@ const Display: React.FC<Props> = ({
         // Card is a temporary variable to store the card that the player has landed on
         // Price is the price of the card that the corresponding player has landed on
         let card, price: number | undefined ;
+
+        // Example of Selection
+        
         // Determines whose turn it is using the count variable
         // Count % 4 because there are 4 players
         switch(count % 4) {
@@ -78,7 +84,8 @@ const Display: React.FC<Props> = ({
                 price = card.price;
                 // Checking whether the card is a type to be able to be bought 
                 if(price) {
-                // Manipulating the bought property to change to the corresponding player that bought the card
+                    // Manipulating the bought property to change to the corresponding player that bought the card
+                    // PLAYERS is the enumarator
                     card.bought = PLAYERS.PLAYER_4;
                     // Changing the bank account to subtract the card price
                     setAccount_4(account_4 - price)
@@ -115,13 +122,18 @@ const Display: React.FC<Props> = ({
                 }
                 break;
         }
+
+        // Updating the primary list of all the cards after the changes of the properties of specific cards being bought
         setCards(cur_cards);
     }
 
     // Function that runs if a player lands on the "Income Tax" card
     const tax = () => {
-        // Alerting the Player
+        // Alerting the user
         window.alert(`Player Must pay tax. \n $200`)
+
+        // Example of Selection
+        
         // Determining whose turn it is
         switch(count % 4) {
             // Player 4
@@ -157,6 +169,9 @@ const Display: React.FC<Props> = ({
         // Minimum is 0
         // Math.floor() because it must be a whole number since it is an index
         const card = community[Math.floor(Math.random() * (community.length - 1))]
+
+        // Example of Selection
+
         // Determining whose turn it is
         switch(count % 4) {
             // Player 4
@@ -189,13 +204,17 @@ const Display: React.FC<Props> = ({
 
     // Function runs when a player lands on a chance card to select a random card from the list of chance cards and run the special function for each card
     const chance_func = (): void => {
-        // "chance" is imported from Lists.ts which includes a list of all the change cards and their functions
 
         // Selecting Random Card
         // Maximum index is chance.length - 1
         // Minimum index is 0
         // Math.floor() because idex must be a whole number
+
+        // "chance" is imported from Lists.ts which includes a list of all the change cards and their functions
         const card = chance[Math.floor(Math.random() * (chance.length - 1))]
+
+        // Example of Selection 
+
         // Determining whose turn it is
         switch(count % 4) {
             // Player 4
@@ -229,9 +248,14 @@ const Display: React.FC<Props> = ({
     // When a player lands on another player's property, this function decides how much to pay and handles the money transaction
     const rent_func = (p: place) => {
         // Checking whether this card is available to rent
+
+        // Example of Selection
         if(p.price) {
             // Rent Price is regular price divided by 10
             const rent_price = p.price / 10;
+
+            // Example of Selection
+
             // Deciding whose turn it is
             switch(count % 4) {
                 // Player 4 Turn
@@ -332,6 +356,8 @@ const Display: React.FC<Props> = ({
         // Button Initial Value
         let button = <div></div>;
         let rent = <div></div>;
+
+        // Example of Selection
         if(p.bought) {
             // If the card is already bought, other players must pay rent if they land on the card
             rent = <button onClick={() => {
@@ -366,6 +392,8 @@ const Display: React.FC<Props> = ({
 
     // Function to check if any of the player's have passed go on their turn
     const check_go = () => {
+        // Example of Selection
+        
         // Using count % 4 to determine whose turn it is
         switch(count % 4) {
             // Player 4
@@ -416,19 +444,26 @@ const Display: React.FC<Props> = ({
             <div className="top-grid">
                 {
                     // Loop through the deconstructed row of cards from the 2D array of all of the cards
+                    // Example of Procedure that includes sequencing, selection, and iteration
+                    // Iteration
                     top.map((card: place) => {
                         return (
                             // Class name is a variable that chnages the color of the card based on who owns the card
                             // If the card does have a bought property, then the class name, which controls the styling will be either "player_1" or etc. or undefined
                             <div className={card.bought ? card.bought : undefined }>
+                                {/* Iteration */}
                                 {card.name} <br />
                                 {card.price} <br />
                                 {/* Depending on whether the corresponding player has landed on this card, the card will display that player or nothing */}
+                                {/* Selection */}
                                 {card.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
                                 {card.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
                                 {card.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
                                 {card.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
                                 {/* The display_button method uses the card's properties to determine which buttons if any should be displayed on the card */}
+                                {/* User must click this button to interact with the card, including buying the card, repaying rent to another player,
+                                selecting a random chance or community chest card, or paying income tax 
+                                */}
                                 {display_button(card)}
                             </div>
                         )
