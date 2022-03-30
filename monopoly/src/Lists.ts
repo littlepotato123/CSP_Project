@@ -1,3 +1,4 @@
+// Lists.tsx
 // This file contains the main list of cards used the progra, the main list of community chest and chance cards, and the main types used such as
 // the position type, the type of each card, and the enumarator to manage players
 
