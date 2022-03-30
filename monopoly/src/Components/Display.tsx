@@ -1,3 +1,4 @@
+// Display.tsx
 // This file displays all of the cards from the main list of cards in Lists.ts
 import React, { /* useEffect is a function used to run a function whenever the page re-renders or a central state is changed */ useEffect } from 'react';
 import {
