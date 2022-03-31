@@ -456,6 +456,10 @@ const Display: React.FC<Props> = ({
                                 {card.name} <br />
                                 {card.price} <br />
                                 {/* Depending on whether the corresponding player has landed on this card, the card will display that player or nothing */}
+
+                                {/* When the player rolls the dice, the individual card property will change and the website will display the corresponding
+                                player's name on the card  */}
+                                {/* Example of the visual output */}
                                 {/* Selection */}
                                 {card.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
                                 {card.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
@@ -465,6 +469,7 @@ const Display: React.FC<Props> = ({
                                 {/* User must click this button to interact with the card, including buying the card, repaying rent to another player,
                                 selecting a random chance or community chest card, or paying income tax 
                                 */}
+                                {/* Call to Procedure */}
                                 {display_button(card)}
                             </div>
                         )
