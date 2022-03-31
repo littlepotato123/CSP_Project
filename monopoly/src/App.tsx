@@ -54,10 +54,12 @@ const App: React.FC = () => {
   const [account_3, setBank_3] = useState<number>(1500);
   const [account_4, setBank_4] = useState<number>(1500);
 
+  // Used to initialize positions
+  const [init, setInit] = useState<boolean>(false);
+
   // Used to determine whose turn it is
   const [count, setCount] = useState<number>(1);
 
-  // Runs for the first render of the page to initiate all players to their starting locations
   useEffect(() => {
     let cur_cards = cards;
     // Displays each player at the corresponding starting position 
@@ -65,8 +67,11 @@ const App: React.FC = () => {
     cur_cards[0][9].player_2 = true;
     cur_cards[0][9].player_3 = true;
     cur_cards[0][9].player_4 = true;
+    // Seting the originial list to the temporary list after changes
     setCards(cur_cards);
-  }, [])
+    // Changing init so that the the function does not run again and just runs in the beginning, once
+    setInit(true);
+  }, [init])
 
   return (
     <div>
