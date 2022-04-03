@@ -439,97 +439,59 @@ const Display: React.FC<Props> = ({
         // Checks if the current player has passed go on their turn
         check_go();
     }, [pos_1, pos_2, pos_3, pos_4])
+
+    // Parameter: list_of_cards is any list of cards that can be passed in and the procedure will return HTML attributes for each card and the row
+    // Parameter: class_name is used for the styling
+    // Example of iteration, selection, and sequencing
+    const display_card_list = (list_of_cards: place[], class_name: string): JSX.Element => {
+        return (
+            <div className={class_name}>
+                {
+                    // example of procedure that includes sequencing, selection, and iteration
+                    // iteration
+                    list_of_cards.map((card: place) => {
+                        return (
+                            // class name is a variable that chnages the color of the card based on who owns the card
+                            // if the card does have a bought property, then the class name, which controls the styling will be either "player_1" or etc. 
+                            // or undefined
+                            <div className={card.bought ? card.bought : undefined }>
+                                {/* iteration */}
+                                {card.name} <br />
+                                {card.price} <br />
+                                {/* depending on whether the corresponding player has landed on this card, the card will display that player or nothing */}
+
+                                {/* when the player rolls the dice, the individual card property will change and the website will display the corresponding
+                                player's name on the card  */}
+                                {/* example of the visual output */}
+                                {/* selection */}
+                                {card.player_1 ? (<div>player 1 <br /></div>) : null}                                 
+                                {card.player_2 ? (<div>player 2 <br /></div>) : null}                                 
+                                {card.player_3 ? (<div>player 3 <br /></div>) : null}                                 
+                                {card.player_4 ? (<div>player 4 <br /></div>) : null}                                 
+                                {/* the display_button method uses the card's properties to determine which buttons if any should be displayed on the card */}
+                                {/* user must click this button to interact with the card, including buying the card, repaying rent to another player,
+                                selecting a random chance or community chest card, or paying income tax 
+                                */}
+                                {/* call to procedure */}
+                                {display_button(card)}
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        )
+    }
     
     return (
         <div>
-            <div className="top-grid">
-                {
-                    // Loop through the deconstructed row of cards from the 2D array of all of the cards
-                    // Example of Procedure that includes sequencing, selection, and iteration
-                    // Iteration
-                    top.map((card: place) => {
-                        return (
-                            // Class name is a variable that chnages the color of the card based on who owns the card
-                            // If the card does have a bought property, then the class name, which controls the styling will be either "player_1" or etc. or undefined
-                            <div className={card.bought ? card.bought : undefined }>
-                                {/* Iteration */}
-                                {card.name} <br />
-                                {card.price} <br />
-                                {/* Depending on whether the corresponding player has landed on this card, the card will display that player or nothing */}
-
-                                {/* When the player rolls the dice, the individual card property will change and the website will display the corresponding
-                                player's name on the card  */}
-                                {/* Example of the visual output */}
-                                {/* Selection */}
-                                {card.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
-                                {card.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
-                                {card.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
-                                {card.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
-                                {/* The display_button method uses the card's properties to determine which buttons if any should be displayed on the card */}
-                                {/* User must click this button to interact with the card, including buying the card, repaying rent to another player,
-                                selecting a random chance or community chest card, or paying income tax 
-                                */}
-                                {/* Call to Procedure */}
-                                {display_button(card)}
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            {/* Passing the deconstructed list of cards from the 2D list of all cards and rows into the display_card_list to get HTML attributes for each card */}
+            {display_card_list(top, "top-grid")}
             <br />
-            <div className="left-grid">
-                {
-                    left.map((card: place) => {
-                        return (
-                            <div className={card.bought ? card.bought : undefined }>
-                                {card.name} <br />
-                                {card.price} <br />
-                                {card.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
-                                {card.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
-                                {card.player_3 ? (<div>Player 3 <br /></div>) : null}
-                                {card.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
-                                {display_button(card)}
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            {display_card_list(left, "left-grid")}
             <br />
-            <div className="right-grid">
-                {
-                    right.map((card: place) => {
-                        return (
-                            <div className={card.bought ? card.bought : undefined }>
-                                {card.name} <br />
-                                {card.price} <br />
-                                {card.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
-                                {card.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
-                                {card.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
-                                {card.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
-                                {display_button(card)}
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            {display_card_list(right, "right-grid")}
             <br />
-            <div className="bottom-grid">
-                {
-                    bottom.map((card: place) => {
-                        return (
-                            <div className={card.bought ? card.bought : undefined}>
-                                {card.name} <br />
-                                {card.price} <br />
-                                {card.player_1 ? (<div>Player 1 <br /></div>) : null}                                 
-                                {card.player_2 ? (<div>Player 2 <br /></div>) : null}                                 
-                                {card.player_3 ? (<div>Player 3 <br /></div>) : null}                                 
-                                {card.player_4 ? (<div>Player 4 <br /></div>) : null}                                 
-                                {display_button(card)}
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            {display_card_list(bottom, "bottom-grid")}
         </div>
     )
 }
